@@ -107,7 +107,7 @@ class MaintainStaff extends React.Component {
             />
             <FormControl required style={{width: "550px"}}>
             <InputLabel htmlFor="role">Role</InputLabel>
-            <Select 
+            <Select
               name='role'
               value={this.state.newEmployee.role}
               onChange={this.handleInput}
@@ -115,10 +115,10 @@ class MaintainStaff extends React.Component {
               margin="dense"
               id="role"
               label="Role"
-              fullWidth     
+              fullWidth
             >
               <MenuItem value='Admin'>Admin</MenuItem>
-              <MenuItem value='Manager'>Office Manager</MenuItem>   
+              <MenuItem value='Manager'>Office Manager</MenuItem>
               <MenuItem value='Advisor'>Sales Advisor</MenuItem>
             </Select>
             </FormControl>

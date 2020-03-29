@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -16,6 +17,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
+
 
 
 class NavBar extends React.Component {
@@ -81,11 +83,11 @@ class NavBar extends React.Component {
     let wrongCredentials;
     // Display erorr message when not authorised and reload the page
     if (this.state.unauthorised) {
-      wrongCredentials = 
+      wrongCredentials =
       <DialogContentText color="error">
         Username/password combination wrong or account doesn't exist
       </DialogContentText>
-      setTimeout( 
+      setTimeout(
         function() {
           window.location.reload(true);
         }, 500);
@@ -115,7 +117,8 @@ class NavBar extends React.Component {
             */}
             {
               this.props.userLoggedIn
-              ? <Button color="inherit" style={{ position: "absolute", right: "1vw" }} onClick={this.userLogout}>
+              ? <Button color="inherit" style={{ position: "absolute", right: "1vw" }} onClick={this.userLogout}
+                startIcon={<ExitToAppRoundedIcon/>}>
                   Sign out
                 </Button>
               : <Button color="inherit" style={{ position: "absolute", right: "1vw" }} onClick={this.handleOpen}>
@@ -131,8 +134,10 @@ class NavBar extends React.Component {
               <DialogContent>
                 <DialogContentText>
                   To access the system, please log in using your login
-                  credentials. To register, or reset your password, contact the
-                  administrator.
+                  credentials.
+                <br/>
+                  If you don't yet have an account, or have forgotten your password,
+                  contact the system administrator.
                 </DialogContentText>
                 {wrongCredentials}
                 <TextField
@@ -169,13 +174,11 @@ class NavBar extends React.Component {
 
         {/* Side menu (drawer) */}
         <Drawer open={this.state.sideMenuOpen} onClose={this.closeMenu}>
-          <List style={{ width: "320px" }}></List>
+          <List style={{ width: "250px" }}></List>
           <Box fontSize="fontSize" textAlign="center">
             <p>Designed in London by Team 6ix</p>
             <p>
-              Developed by{" "}
-              <a href="https://piotr-rutkowski.com">Piotr Rutkowski</a> and{" "}
-              <a href="https://github.com/SohagCity">Sohag Miah</a>
+              Developed by Team 6ix
             </p>
             {
               this.props.userLoggedIn &&
