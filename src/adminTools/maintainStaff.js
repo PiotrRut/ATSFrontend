@@ -61,12 +61,12 @@ class MaintainStaff extends React.Component {
         password: ''
       },
       editedEmployee: {
-        name: '',
-        surname: '',
-        role: '',
-        username: '',
+        name: null,
+        surname: null,
+        role: null,
+        username: null,
         oldUsername: '',
-        password: ''
+        password: null
       },
       checked: false,
       setChecked: false
@@ -122,7 +122,7 @@ class MaintainStaff extends React.Component {
       'role': this.state.editedEmployee.role,
       'oldUsername': this.state.editedEmployee.oldUsername,
       'newUsername': this.state.editedEmployee.username,
-      'password': this.state.editedEmployee.password 
+      'password': this.state.editedEmployee.password
     })
       .then(response => {
         console.log(response)
@@ -140,7 +140,7 @@ class MaintainStaff extends React.Component {
   };
 
    // Updating user details for editing employees
-   handleChangeInput = event => {
+  handleChangeInput = event => {
     this.state.editedEmployee[event.target.name] = event.target.value
     this.setState({ editedEmployee: this.state.editedEmployee});
   };
@@ -152,7 +152,7 @@ class MaintainStaff extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
-  
+
   // Dialog open and close for updating users
   handleOpenUpdate = () => {
     this.setState({ openUpdate: true });
@@ -209,13 +209,13 @@ class MaintainStaff extends React.Component {
                         <Button
                          startIcon={<HighlightOffRoundedIcon/>}
                          variant="outlined"
-                         color="secondary" 
-                         size="small" 
+                         color="secondary"
+                         size="small"
                          onClick={() => {this.deleteUser(user.username)}}>Delete User
                         </Button>
                     </CardActions>
                   </Card>
-                </div>                 
+                </div>
                 ))
               }
             </Grid>
@@ -303,10 +303,14 @@ class MaintainStaff extends React.Component {
           open={this.state.openUpdate}
           onClose={this.handleCloseUpdate}
           aria-labelledby="form-dialog-title"
-        > 
+        >
           <DialogTitle id="form-dialog-title">Update employee details</DialogTitle>
           <DialogContent>
-            <DialogContentText>First choose the employee you would like to edit, and then update their details</DialogContentText>
+            <DialogContentText>
+              First choose the employee you would like to edit, and update their details.
+              <br/>
+              Remember to always specify the role, even if it is not changing.
+            </DialogContentText>
             <FormControl required style={{width: "550px"}}>
               <InputLabel htmlFor="oldUsername">User to edit</InputLabel>
               <Select
@@ -321,13 +325,12 @@ class MaintainStaff extends React.Component {
                 fullWidth
               >
                 { this.state.allUsers.map(user => (
-                  <MenuItem value={user.username}>{user.username} - {user.name} {user.surname}</MenuItem>
+                  <MenuItem value={user.username}>{user.username} - {user.name} {user.surname} ({user.role})</MenuItem>
                   ))
-                } 
+                }
               </Select>
             </FormControl>
             <TextField
-              required
               variant="standard"
               value={this.state.editedEmployee.name}
               onChange={this.handleChangeInput}
@@ -338,7 +341,6 @@ class MaintainStaff extends React.Component {
               fullWidth
             />
             <TextField
-              required
               variant="standard"
               value={this.state.editedEmployee.surname}
               onChange={this.handleChangeInput}
@@ -366,18 +368,16 @@ class MaintainStaff extends React.Component {
               </Select>
             </FormControl>
             <TextField
-              required
               variant="standard"
               value={this.state.editedEmployee.username}
               onChange={this.handleChangeInput}
               name="username"
               margin="dense"
               id="username"
-              label="Username"
+              label="New Username"
               fullWidth
             />
             <TextField
-              required
               variant="standard"
               value={this.state.editedEmployee.password}
               onChange={this.handleChangeInput}
