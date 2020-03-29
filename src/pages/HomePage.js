@@ -1,6 +1,5 @@
 import React from 'react';
 import '../App.scss';
-import TeamPic from '../assets/Teampic.png'
 import MaintainStaff from '../adminTools/maintainStaff'
 import PropTypes from 'prop-types'
 import { makeStyles, useTheme } from '@material-ui/core/styles'

@@ -17,6 +17,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
+import TeamPic from '../assets/Teampic.png'
 
 
 
@@ -104,7 +105,11 @@ class NavBar extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6">AirVia</Typography>
+            {
+              this.props.userLoggedIn ?
+              <Typography variant="h6">AirVia ATS - {this.props.staffRole} Dashboard</Typography>
+              : <Typography variant="h6">AirVia ATS</Typography>
+            }
             {
               this.props.userLoggedIn &&
               <Typography variant="h6" style={{ position: "absolute", right: "43vw" }}>
