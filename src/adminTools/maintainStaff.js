@@ -25,11 +25,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Switch from '@material-ui/core/Switch';
 import Grow from '@material-ui/core/Grow';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 
 
 const styles = theme => ({
   root: {
-    minWidth: 100,
+    minWidth: 200,
     maxWidth: 300,
     flexGrow: 1,
     margin: 20
@@ -64,6 +65,7 @@ class MaintainStaff extends React.Component {
         surname: '',
         role: '',
         username: '',
+        oldUsername: '',
         password: ''
       },
       checked: false,
@@ -71,14 +73,14 @@ class MaintainStaff extends React.Component {
      }
   }
 
-  // Fetch a list of all users when the component mounts
+  // Fetch a list of all users when the component mounts and save into local array
   componentDidMount() {
     axios.get(`${APIURL}/staff/getAll?secret_token=${this.props.token}`)
     .then(res => this.setState({ allUsers: res.data }, console.log(res)))
     console.log(this.state.allUsers)
   }
 
-  // Post the entered user details to backend
+  // Post the entered user details to backend to register
   registerSubmit = () => {
     axios.post(`${APIURL}/auth/register?secret_token=${this.props.token}`, {
       name: this.state.newEmployee.name,
@@ -96,6 +98,7 @@ class MaintainStaff extends React.Component {
       });
   };
 
+  // Delete a user and update the list
   deleteUser = (username) => {
     axios.delete(`${APIURL}/staff/deleteUser?secret_token=${this.props.token}`, {
         data: {username: username}
@@ -111,25 +114,22 @@ class MaintainStaff extends React.Component {
       });
   };
 
-  updateUser = (oldUsername) => {
+  // Update user details and return to backend
+  updateUser = () => {
     axios.patch(`${APIURL}/staff/updateUser?secret_token=${this.props.token}`, {
-      data : { 
-      name: this.state.editedEmployee.name,
-      surname: this.state.editedEmployee.surname,
-      role: this.state.editedEmployee.role,
-      oldUsername: oldUsername,
-      newUsername: this.state.editedEmployee.username,
-      password: this.state.editedEmployee.password 
-      } 
+      'name': this.state.editedEmployee.name,
+      'surname': this.state.editedEmployee.surname,
+      'role': this.state.editedEmployee.role,
+      'oldUsername': this.state.editedEmployee.oldUsername,
+      'newUsername': this.state.editedEmployee.username,
+      'password': this.state.editedEmployee.password 
     })
       .then(response => {
         console.log(response)
         window.location.reload()
-        console.log(oldUsername)
       })
       .catch(error => {
         console.log(error)
-        console.log(oldUsername)
       });
   }
 
@@ -139,7 +139,7 @@ class MaintainStaff extends React.Component {
     this.setState({ newEmployee: this.state.newEmployee});
   };
 
-   // Updating user details for updating employees
+   // Updating user details for editing employees
    handleChangeInput = event => {
     this.state.editedEmployee[event.target.name] = event.target.value
     this.setState({ editedEmployee: this.state.editedEmployee});
@@ -161,6 +161,7 @@ class MaintainStaff extends React.Component {
     this.setState({ openUpdate: false });
   };
 
+  // Handler for the check button
   handleCheckButton = () => {
     { !this.state.checked ?
       this.setState({checked: true})
@@ -177,14 +178,10 @@ class MaintainStaff extends React.Component {
         <Button color="blue" onClick={this.handleOpen}>
           Register a new employee
         </Button>
+        <Button size="small" onClick={this.handleOpenUpdate}>Update an existing employee</Button>
         <br/> <br/>
 
-        <FormControlLabel
-        control={<Switch checked={this.state.checked} onChange={this.handleCheckButton} />}
-        label="Show/hide employee list"
-        style={{color: 'black'}}
-        />
-        <Grow in={this.state.checked}>
+        {/* Card views for registered employees */}
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={1}>
@@ -209,8 +206,13 @@ class MaintainStaff extends React.Component {
                       </Typography>
                     </CardContent>
                     <CardActions style={{ justifyContent: 'center' }}>
-                        <Button size="small" onClick={() => {this.deleteUser(user.username)}}>Delete User</Button>
-                        <Button size="small" onClick={this.handleOpenUpdate}>Update User</Button>
+                        <Button
+                         startIcon={<HighlightOffRoundedIcon/>}
+                         variant="outlined"
+                         color="secondary" 
+                         size="small" 
+                         onClick={() => {this.deleteUser(user.username)}}>Delete User
+                        </Button>
                     </CardActions>
                   </Card>
                 </div>                 
@@ -219,8 +221,8 @@ class MaintainStaff extends React.Component {
             </Grid>
           </Grid>
         </Grid>
-        </Grow>
 
+        {/* Dialog for registering new employees */}
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -296,6 +298,100 @@ class MaintainStaff extends React.Component {
           </DialogContent>
         </Dialog>
 
+        {/* Dialog for editing existing employees' details */}
+        <Dialog
+          open={this.state.openUpdate}
+          onClose={this.handleCloseUpdate}
+          aria-labelledby="form-dialog-title"
+        > 
+          <DialogTitle id="form-dialog-title">Update employee details</DialogTitle>
+          <DialogContent>
+            <DialogContentText>First choose the employee you would like to edit, and then update their details</DialogContentText>
+            <FormControl required style={{width: "550px"}}>
+              <InputLabel htmlFor="oldUsername">User to edit</InputLabel>
+              <Select
+                autoFocus
+                name='oldUsername'
+                value={this.state.editedEmployee.oldUsername}
+                onChange={this.handleChangeInput}
+                variant='standard'
+                margin="dense"
+                id="oldUsername"
+                label="oldUsername"
+                fullWidth
+              >
+                { this.state.allUsers.map(user => (
+                  <MenuItem value={user.username}>{user.username} - {user.name} {user.surname}</MenuItem>
+                  ))
+                } 
+              </Select>
+            </FormControl>
+            <TextField
+              required
+              variant="standard"
+              value={this.state.editedEmployee.name}
+              onChange={this.handleChangeInput}
+              name="name"
+              margin="dense"
+              id="name"
+              label="Name"
+              fullWidth
+            />
+            <TextField
+              required
+              variant="standard"
+              value={this.state.editedEmployee.surname}
+              onChange={this.handleChangeInput}
+              name="surname"
+              margin="dense"
+              id="surname"
+              label="Surname"
+              fullWidth
+            />
+            <FormControl required style={{width: "550px"}}>
+              <InputLabel htmlFor="role">Role</InputLabel>
+              <Select
+                name='role'
+                value={this.state.editedEmployee.role}
+                onChange={this.handleChangeInput}
+                variant='standard'
+                margin="dense"
+                id="role"
+                label="Role"
+                fullWidth
+              >
+                <MenuItem value='Admin'>Admin</MenuItem>
+                <MenuItem value='Manager'>Office Manager</MenuItem>
+                <MenuItem value='Advisor'>Sales Advisor</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              required
+              variant="standard"
+              value={this.state.editedEmployee.username}
+              onChange={this.handleChangeInput}
+              name="username"
+              margin="dense"
+              id="username"
+              label="Username"
+              fullWidth
+            />
+            <TextField
+              required
+              variant="standard"
+              value={this.state.editedEmployee.password}
+              onChange={this.handleChangeInput}
+              name="password"
+              margin="dense"
+              id="password"
+              label="Password"
+              fullWidth
+            />
+            <DialogActions>
+              <Button onClick={this.updateUser}>Update User</Button>
+            </DialogActions>
+          </DialogContent>
+        </Dialog>
       </div>
     )
   }
