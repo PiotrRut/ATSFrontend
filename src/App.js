@@ -56,7 +56,7 @@ class App extends React.Component {
               {/* If logged in redirect to homepage and mount appropriate components, else display landing*/}
             {
               this.state.userLoggedIn
-              ? <HomePage token={this.state.usertoken} staffRole={this.state.userRole} /> 
+              ? <HomePage token={this.state.usertoken} staffRole={this.state.userRole} username={this.state.userID} /> 
               : <LandingPage/> 
             }
           </div>

@@ -83,7 +83,7 @@ export default function FullWidthTabs (props) {
   if (props.staffRole == 'Admin') {
     allTabs =
     <TabPanel key={'manageStaff'} value={value} index={0} dir={theme.direction}>
-      <MaintainStaff user={props.staffRole} token={props.token}/>
+      <MaintainStaff staffRole={props.staffRole} token={props.token} username={props.username} />
     </TabPanel>
     tabs = [
       'Manage Employees',

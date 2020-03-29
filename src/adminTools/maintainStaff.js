@@ -22,14 +22,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-
+import Switch from '@material-ui/core/Switch';
+import Grow from '@material-ui/core/Grow';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 const styles = theme => ({
   root: {
     minWidth: 100,
     maxWidth: 300,
-    height: 200,
     flexGrow: 1,
     margin: 20
   },
@@ -48,14 +49,25 @@ class MaintainStaff extends React.Component {
 
     this.state = {
       allUsers: [],
+      staffRole: props.staffRole,
       open: false,
+      openUpdate: false,
       newEmployee: {
         name: '',
         surname: '',
         role: '',
         username: '',
         password: ''
-      }
+      },
+      editedEmployee: {
+        name: '',
+        surname: '',
+        role: '',
+        username: '',
+        password: ''
+      },
+      checked: false,
+      setChecked: false
      }
   }
 
@@ -63,6 +75,7 @@ class MaintainStaff extends React.Component {
   componentDidMount() {
     axios.get(`${APIURL}/staff/getAll?secret_token=${this.props.token}`)
     .then(res => this.setState({ allUsers: res.data }, console.log(res)))
+    console.log(this.state.allUsers)
   }
 
   // Post the entered user details to backend
@@ -83,10 +96,53 @@ class MaintainStaff extends React.Component {
       });
   };
 
-  // Updating user details
+  deleteUser = (username) => {
+    axios.delete(`${APIURL}/staff/deleteUser?secret_token=${this.props.token}`, {
+        data: {username: username}
+    })
+      .then(response => {
+        console.log(response)
+        console.log(this.props.usernamee)
+        window.location.reload()
+      })
+      .catch(error => {
+        console.log(error)
+        console.log(this.props.username)
+      });
+  };
+
+  updateUser = (oldUsername) => {
+    axios.patch(`${APIURL}/staff/updateUser?secret_token=${this.props.token}`, {
+      data : { 
+      name: this.state.editedEmployee.name,
+      surname: this.state.editedEmployee.surname,
+      role: this.state.editedEmployee.role,
+      oldUsername: oldUsername,
+      newUsername: this.state.editedEmployee.username,
+      password: this.state.editedEmployee.password 
+      } 
+    })
+      .then(response => {
+        console.log(response)
+        window.location.reload()
+        console.log(oldUsername)
+      })
+      .catch(error => {
+        console.log(error)
+        console.log(oldUsername)
+      });
+  }
+
+  // Updating user details for new employees
   handleInput = event => {
     this.state.newEmployee[event.target.name] = event.target.value
     this.setState({ newEmployee: this.state.newEmployee});
+  };
+
+   // Updating user details for updating employees
+   handleChangeInput = event => {
+    this.state.editedEmployee[event.target.name] = event.target.value
+    this.setState({ editedEmployee: this.state.editedEmployee});
   };
 
   // Dialog open and close
@@ -96,43 +152,74 @@ class MaintainStaff extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  
+  // Dialog open and close for updating users
+  handleOpenUpdate = () => {
+    this.setState({ openUpdate: true });
+  };
+  handleCloseUpdate = () => {
+    this.setState({ openUpdate: false });
+  };
+
+  handleCheckButton = () => {
+    { !this.state.checked ?
+      this.setState({checked: true})
+      : this.setState({checked: false})
+    }
+  };
 
   render () {
     const { classes } = this.props;
     return (
       <div>
         <h1>Staff management:</h1>
+        <h3>Number of registered employees: {this.state.allUsers.length}</h3>
         <Button color="blue" onClick={this.handleOpen}>
           Register a new employee
         </Button>
         <br/> <br/>
 
+        <FormControlLabel
+        control={<Switch checked={this.state.checked} onChange={this.handleCheckButton} />}
+        label="Show/hide employee list"
+        style={{color: 'black'}}
+        />
+        <Grow in={this.state.checked}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Grid container justify="center" spacing={2}>
+            <Grid container justify="center" spacing={1}>
               {
                 this.state.allUsers.map(user => (
+                  <div>
                   <Card className={classes.root} variant="outlined" >
                     <CardContent>
-                      <Typography className={classes.title} color="textSecondary" gutterBottom>
+                      { (user.username === this.props.username) ?
+                        <Typography variant="h5" component="h2" gutterBottom>
+                        {user.name} {user.surname} (You)
+                        </Typography>
+                        : <Typography variant="h5" component="h2" gutterBottom>
                         {user.name} {user.surname}
-                      </Typography>
+                        </Typography>
+                      }
                       <Typography variant="body2" component="p">
                         Role: {user.role}
                       </Typography>
+                      <Typography variant="body2" className={classes.pos} color="textSecondary">
+                        Username: {user.username}
+                      </Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button size="small">Delete User</Button>
-                    </CardActions>
-                    <CardActions>
-                        <Button size="small">Update User</Button>
+                    <CardActions style={{ justifyContent: 'center' }}>
+                        <Button size="small" onClick={() => {this.deleteUser(user.username)}}>Delete User</Button>
+                        <Button size="small" onClick={this.handleOpenUpdate}>Update User</Button>
                     </CardActions>
                   </Card>
+                </div>                 
                 ))
               }
             </Grid>
           </Grid>
         </Grid>
+        </Grow>
 
         <Dialog
           open={this.state.open}
@@ -208,6 +295,7 @@ class MaintainStaff extends React.Component {
           </DialogActions>
           </DialogContent>
         </Dialog>
+
       </div>
     )
   }
