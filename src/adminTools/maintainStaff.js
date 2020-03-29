@@ -2,7 +2,11 @@ import React from 'react'
 import '../App.scss'
 import axios from 'axios'
 import APIURL from '../misc/backend.js'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/styles';
 
+import Grid from "@material-ui/core/Grid"
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -15,9 +19,28 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel"
 import FormControl from '@material-ui/core/FormControl';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
-// TODO: Add form validation, so there's no way to submit without required fields
-// TODO: Whole component due to be changed from a dialog to React-UI Paper
+
+
+const styles = theme => ({
+  root: {
+    minWidth: 100,
+    maxWidth: 300,
+    height: 200,
+    flexGrow: 1,
+    margin: 20
+  },
+  title: {
+    fontSize: 17,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+});
+
 
 class MaintainStaff extends React.Component {
   constructor (props) {
@@ -36,8 +59,14 @@ class MaintainStaff extends React.Component {
      }
   }
 
+  // Fetch a list of all users when the component mounts
+  componentDidMount() {
+    axios.get(`${APIURL}/staff/getAll?secret_token=${this.props.token}`)
+    .then(res => this.setState({ allUsers: res.data }, console.log(res)))
+  }
+
   // Post the entered user details to backend
-  formSubmit = () => {
+  registerSubmit = () => {
     axios.post(`${APIURL}/auth/register?secret_token=${this.props.token}`, {
       name: this.state.newEmployee.name,
       surname: this.state.newEmployee.surname,
@@ -69,18 +98,48 @@ class MaintainStaff extends React.Component {
   };
 
   render () {
+    const { classes } = this.props;
     return (
       <div>
         <h1>Staff management:</h1>
         <Button color="blue" onClick={this.handleOpen}>
-          Register Users
+          Register a new employee
         </Button>
+        <br/> <br/>
+
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Grid container justify="center" spacing={2}>
+              {
+                this.state.allUsers.map(user => (
+                  <Card className={classes.root} variant="outlined" >
+                    <CardContent>
+                      <Typography className={classes.title} color="textSecondary" gutterBottom>
+                        {user.name} {user.surname}
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        Role: {user.role}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small">Delete User</Button>
+                    </CardActions>
+                    <CardActions>
+                        <Button size="small">Update User</Button>
+                    </CardActions>
+                  </Card>
+                ))
+              }
+            </Grid>
+          </Grid>
+        </Grid>
+
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Register Employees</DialogTitle>
+          <DialogTitle id="form-dialog-title">Register a new employee</DialogTitle>
           <DialogContent>
             <TextField
               required
@@ -145,7 +204,7 @@ class MaintainStaff extends React.Component {
               fullWidth
             />
           <DialogActions>
-            <Button onClick={this.formSubmit}>Register</Button>
+            <Button onClick={this.registerSubmit}>Register</Button>
           </DialogActions>
           </DialogContent>
         </Dialog>
@@ -154,4 +213,8 @@ class MaintainStaff extends React.Component {
   }
 }
 
-export default MaintainStaff
+MaintainStaff.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles) (MaintainStaff);
