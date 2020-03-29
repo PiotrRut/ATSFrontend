@@ -107,14 +107,10 @@ class NavBar extends React.Component {
             </IconButton>
             {
               this.props.userLoggedIn ?
-              <Typography variant="h6">AirVia ATS - {this.props.staffRole} Dashboard</Typography>
-              : <Typography variant="h6">AirVia ATS</Typography>
-            }
-            {
-              this.props.userLoggedIn &&
-              <Typography variant="h6" style={{ position: "absolute", right: "43vw" }}>
-                Welcome, {this.props.staffName}
+              <Typography variant="h6">
+                AirVia ATS - {this.props.staffRole} Dashboard ({this.props.staffName})
               </Typography>
+              : <Typography variant="h6">AirVia ATS</Typography>
             }
             {/* userLoggedIn defined in App.js - when true and a token
               is currently stored within local storage, only the log out
