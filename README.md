@@ -1,4 +1,4 @@
-# Air Ticket Sales System
+# Air Ticket Sales System (Front end)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b3cc5e5c-2cb3-4899-8565-fc0d27198284/deploy-status)](https://app.netlify.com/sites/ats-group6/deploys)
 
