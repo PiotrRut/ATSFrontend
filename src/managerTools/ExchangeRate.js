@@ -53,7 +53,7 @@ class ExchangeRate extends React.Component {
     <div>
     <h1>The current local currency exchange rate is:</h1>
     <h1>$1 USD * {this.state.exchangeRate.rate} = £1 ({this.state.exchangeRate.localCurrencyCode})</h1>
-    <h5>Last Update: {moment(this.state.exchangeRate.updatedAt).format('MMMM Do YYYY, h:mm:ss a')}</h5>
+    <h5>Last Update: {moment(this.state.exchangeRate.updatedAt).format('Do MMMM YYYY, h:mm:ss a')}</h5>
     <Grid container spacing={0} direction="column" alignItems="center" justify="center" >
         <Grid item xs={3}>
             <TextField
