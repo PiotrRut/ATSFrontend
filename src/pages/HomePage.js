@@ -25,6 +25,7 @@ import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import ReceiptRoundedIcon from '@material-ui/icons/ReceiptRounded';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import LocalOfferRoundedIcon from '@material-ui/icons/LocalOfferRounded';
+import ExchangeRate from '../managerTools/ExchangeRate';
 
 function TabPanel (props) {
   const { children, value, index, ...other } = props
@@ -82,7 +83,7 @@ export default function FullWidthTabs (props) {
   // Create administrator views
   if (props.staffRole == 'Admin') {
     allTabs =
-    <TabPanel key={'manageStaff'} value={value} index={0} dir={theme.direction}>
+    <TabPanel key={'ManageStaff'} value={value} index={0} dir={theme.direction}>
       <MaintainStaff staffRole={props.staffRole} token={props.token} username={props.username} />
     </TabPanel>
     tabs = [
@@ -102,8 +103,8 @@ export default function FullWidthTabs (props) {
     // Create manager views
   } else if (props.staffRole == 'Manager') {
     allTabs =
-    <TabPanel key={'manageStaff'} value={value} index={0} dir={theme.direction}>
-      <MaintainStaff user={props.staffRole} token={props.token}/>
+    <TabPanel key={'ExchangeRate'} value={value} index={0} dir={theme.direction}>
+      <ExchangeRate user={props.staffRole} token={props.token}/>
     </TabPanel>
     tabs = [
       'Exchange Rate',
@@ -124,14 +125,14 @@ export default function FullWidthTabs (props) {
     // Create travel advisor views
   } else if (props.staffrole == 'Advisor') {
     allTabs =
-    <TabPanel key={'manageStaff'} value={value} index={0} dir={theme.direction}>
-      <MaintainStaff user={props.staffRole} token={props.token}/>
+    <TabPanel key={'ExchangeRate'} value={value} index={0} dir={theme.direction}>
+      <ExchangeRate user={props.staffRole} token={props.token}/>
     </TabPanel>
     tabs = [
-
+      'Exchange Rate'
     ]
     icons = [
-      <GroupRoundedIcon/>
+      <MonetizationOnRoundedIcon/>
     ]
   }
 
