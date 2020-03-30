@@ -1,6 +1,5 @@
 import React from 'react';
 import '../App.scss';
-import MaintainStaff from '../adminTools/maintainStaff'
 import PropTypes from 'prop-types'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -12,7 +11,8 @@ import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-// Admin tab icons
+// Admin tab icons and components
+import MaintainStaff from '../adminTools/maintainStaff'
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
 import StorageRoundedIcon from '@material-ui/icons/StorageRounded';
 import BackupRoundedIcon from '@material-ui/icons/BackupRounded';
@@ -20,6 +20,7 @@ import PictureAsPdfRoundedIcon from '@material-ui/icons/PictureAsPdfRounded';
 import ContactMailRoundedIcon from '@material-ui/icons/ContactMailRounded';
 
 // Manager tab icons
+import MaintainCustomers from '../saleTools/maintainCustomers'
 import MonetizationOnRoundedIcon from '@material-ui/icons/MonetizationOnRounded';
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import ReceiptRoundedIcon from '@material-ui/icons/ReceiptRounded';
@@ -82,10 +83,11 @@ export default function FullWidthTabs (props) {
   let allTabs;
   // Create administrator views
   if (props.staffRole == 'Admin') {
-    allTabs =
+    allTabs = props = [
     <TabPanel key={'ManageStaff'} value={value} index={0} dir={theme.direction}>
       <MaintainStaff staffRole={props.staffRole} token={props.token} username={props.username} />
-    </TabPanel>
+    </TabPanel>,
+    ]
     tabs = [
       'Manage Employees',
       'Backup Database',
@@ -102,10 +104,11 @@ export default function FullWidthTabs (props) {
     ]
     // Create manager views
   } else if (props.staffRole == 'Manager') {
-    allTabs =
+    allTabs = props = [
     <TabPanel key={'ExchangeRate'} value={value} index={0} dir={theme.direction}>
       <ExchangeRate user={props.staffRole} token={props.token}/>
     </TabPanel>
+    ]
     tabs = [
       'Exchange Rate',
       'Assign Blanks',
@@ -123,16 +126,22 @@ export default function FullWidthTabs (props) {
       <LocalOfferRoundedIcon/>
     ]
     // Create travel advisor views
-  } else if (props.staffrole == 'Advisor') {
-    allTabs =
+  } else if (props.staffRole == 'Advisor') {
+    allTabs = props = [
     <TabPanel key={'ExchangeRate'} value={value} index={0} dir={theme.direction}>
       <ExchangeRate user={props.staffRole} token={props.token}/>
+    </TabPanel>,
+    <TabPanel key={'MaintainCustomers'} value={value} index={1} dir={theme.direction}>
+      <MaintainCustomers user={props.staffRole} token={props.token}/>
     </TabPanel>
+    ]
     tabs = [
-      'Exchange Rate'
+      'Exchange Rate',
+      'Maintain Customers'
     ]
     icons = [
-      <MonetizationOnRoundedIcon/>
+      <MonetizationOnRoundedIcon/>,
+      <GroupRoundedIcon/>
     ]
   }
 
