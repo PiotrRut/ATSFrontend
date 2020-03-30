@@ -27,13 +27,17 @@ import Grow from '@material-ui/core/Grow';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
 
+import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
+import PaymentRoundedIcon from '@material-ui/icons/PaymentRounded';
+
 
 const styles = theme => ({
   root: {
     minWidth: 200,
     maxWidth: 300,
     flexGrow: 1,
-    margin: 20
+    margin: 20,
   },
   title: {
     fontSize: 17,
@@ -52,6 +56,7 @@ class MaintainCustomers extends React.Component {
       allCustomers: [],
       open: false,
       openUpdate: false,
+      openCard: false,
       newCustomer: {
         name: '',
         surname: '',
@@ -67,12 +72,20 @@ class MaintainCustomers extends React.Component {
         phoneNo: null,
         _id: null
       },
+      newCard: {
+          owner: null,
+          nameOnCard: '',
+          cardNumber: '',
+          cardIssuer: '',
+          cvc: '',
+          exp: ''
+      },
       checked: false,
       setChecked: false
      }
   }
 
-  // Fetch a list of all customer when the component mounts and save into local array
+  // Fetch a list of all customer and their cards when the component mounts and save into local array
   componentDidMount() {
     axios.get(`${APIURL}/customers/getAll?secret_token=${this.props.token}`)
     .then(res => this.setState({ allCustomers: res.data }, console.log(res)))
@@ -132,6 +145,24 @@ class MaintainCustomers extends React.Component {
       });
   }
 
+  addNewCard = () => {
+    axios.post(`${APIURL}/customers/addPayment?secret_token=${this.props.token}`, {
+     owner: this.state.newCard.owner,
+     nameOnCard: this.state.newCard.nameOnCard,
+     cardNumber: this.state.newCard.cardNumber,
+     cardIssuer: this.state.newCard.cardIssuer,
+     cvc: this.state.newCard.cvc,
+     exp: this.state.newCard.exp
+    })
+      .then(response => {
+        console.log(response)
+        window.location.reload()
+      })
+      .catch(error => {
+        console.log(error)
+      });
+  }
+
   // Updating customer details for new customers
   handleInput = event => {
     this.state.newCustomer[event.target.name] = event.target.value
@@ -142,6 +173,12 @@ class MaintainCustomers extends React.Component {
   handleChangeInput = event => {
     this.state.editedCustomer[event.target.name] = event.target.value
     this.setState({ editedCustomer: this.state.editedCustomer});
+  };
+
+   // Updating customer details for assigning new cards
+  handleCardInput = event => {
+    this.state.newCard[event.target.name] = event.target.value
+    this.setState({ newCard: this.state.newCard});
   };
 
   // Dialog open and close
@@ -160,6 +197,14 @@ class MaintainCustomers extends React.Component {
     this.setState({ openUpdate: false });
   };
 
+// Dialog open and close for adding new cards
+  handleOpenCard = () => {
+    this.setState({ openCard: true });
+  };
+  handleCloseCard = () => {
+    this.setState({ openCard: false });
+  };
+
   // Handler for the check button
   handleCheckButton = () => {
     { !this.state.checked ?
@@ -174,10 +219,15 @@ class MaintainCustomers extends React.Component {
       <div>
         <h1>Customers</h1>
         <h3>Number of registered customers: {this.state.allCustomers.length}</h3>
-        <Button color="blue" onClick={this.handleOpen}>
+        <Button size="small" onClick={this.handleOpen} startIcon={<PersonAddRoundedIcon/>}>
           Register a new customer
         </Button>
-        <Button size="small" onClick={this.handleOpenUpdate}>Update an existing customer</Button>
+        <Button size="small" onClick={this.handleOpenUpdate} startIcon={<EditRoundedIcon/>}>
+        Update an existing customer
+        </Button>
+        <Button size="small" onClick={this.handleOpenCard} startIcon={<PaymentRoundedIcon/>}>
+          Register new payment card
+        </Button>
         <br/> <br/>
 
         {/* Card views for registered customers */}
@@ -194,6 +244,14 @@ class MaintainCustomers extends React.Component {
                       </Typography>
                       <Typography variant="body2" component="p">
                         Alias: {customer.alias}
+                      </Typography>
+                     { customer.customerStatus &&
+                     <Typography variant="body2" component="p">
+                        Status: {customer.customerStatus} customer
+                      </Typography>
+                      }
+                      <Typography variant="body2" component="p">
+                        Number of payment cards: {customer.cards.length}
                       </Typography>
                     </CardContent>
                     <CardActions style={{ justifyContent: 'center' }}>
@@ -276,7 +334,7 @@ class MaintainCustomers extends React.Component {
               id="phoneNo"
               label="Phone number"
               fullWidth
-            />            
+            />
           <DialogActions>
             <Button onClick={this.registerSubmit}>Register</Button>
           </DialogActions>
@@ -292,9 +350,8 @@ class MaintainCustomers extends React.Component {
           <DialogTitle id="form-dialog-title">Update customer details</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              First choose the employee you would like to edit, and update their details.
+              First choose the customer you would like to edit, and update their details.
               <br/>
-              Remember to always specify the role, even if it is not changing.
             </DialogContentText>
             <FormControl required style={{width: "550px"}}>
               <InputLabel htmlFor="_id">Customer to edit</InputLabel>
@@ -367,6 +424,98 @@ class MaintainCustomers extends React.Component {
             />
             <DialogActions>
               <Button onClick={this.updateCustomer}>Update Customer</Button>
+            </DialogActions>
+          </DialogContent>
+        </Dialog>
+
+        {/* Dialog for assigning new cards to customers */}
+        <Dialog
+          open={this.state.openCard}
+          onClose={this.handleCloseCard}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Assign new payment card to customer</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              First choose the customer to assignt the card to, next add card details.
+              <br/>
+            </DialogContentText>
+            <FormControl required style={{width: "550px"}}>
+              <InputLabel htmlFor="owner">Customer to assign new card</InputLabel>
+              <Select
+                required
+                autoFocus
+                name='owner'
+                value={this.state.newCard.owner}
+                onChange={this.handleCardInput}
+                variant='standard'
+                margin="dense"
+                id="owner"
+                label="Customer to assign new card"
+                fullWidth
+              >
+                { this.state.allCustomers.map(customer => (
+                  <MenuItem value={customer._id}>{customer.name} {customer.surname}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+            <TextField
+              required
+              variant="standard"
+              value={this.state.newCard.nameOnCard}
+              onChange={this.handleCardInput}
+              name="nameOnCard"
+              margin="dense"
+              id="nameOnCard"
+              label="Name on card"
+              fullWidth
+            />
+            <TextField
+              variant="standard"
+              value={this.state.newCard.cardNumber}
+              onChange={this.handleCardInput}
+              name="cardNumber"
+              margin="dense"
+              id="cardNumber"
+              label="Card Number"
+              fullWidth
+              required
+            />
+            <TextField
+              variant="standard"
+              value={this.state.newCard.cardIssuer}
+              onChange={this.handleCardInput}
+              name="cardIssuer"
+              margin="dense"
+              id="cardIssuer"
+              label="Card Issuer"
+              fullWidth
+              required
+            />
+            <TextField
+              variant="standard"
+              value={this.state.newCard.cvc}
+              onChange={this.handleCardInput}
+              name="cvc"
+              margin="dense"
+              id="cvc"
+              label="CVC Code"
+              fullWidth
+              required
+            />
+            <TextField
+              variant="standard"
+              value={this.state.newCard.exp}
+              onChange={this.handleCardInput}
+              name="exp"
+              margin="dense"
+              id="exp"
+              label="Expiry date (MMYY format)"
+              fullWidth
+            />
+            <DialogActions>
+              <Button onClick={this.addNewCard}>Register Card</Button>
             </DialogActions>
           </DialogContent>
         </Dialog>

@@ -13,6 +13,6 @@ We have chosen to create the system as a web app, based purely on React for the 
 
 Since the project specification does not require the system to be working on mobile phones, there is no mobile and responsiveness optimisation to this web app.
 
-### Intallation
+### Installation
 
 In order to run the front on of the website, clone this repository, and run `yarn start` inside it. This will run the app in development mode, available at http://localhost:3000.
