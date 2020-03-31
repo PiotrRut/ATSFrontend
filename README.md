@@ -1,4 +1,4 @@
-# Air Ticket Sales System (Front end)
+# :airplane: Air Ticket Sales System (Front end)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b3cc5e5c-2cb3-4899-8565-fc0d27198284/deploy-status)](https://app.netlify.com/sites/ats-group6/deploys)
 
@@ -9,7 +9,7 @@ We have been asked to build from the bottom a fully functional system that will 
 
 ### Our solution
 
-We have chosen to create the system as a web app, based purely on React for the user interface, and Node & Express server-side, with MongoDB as our chosen database. There is a separate repository for backend to this project, which handles the server requests and database connection, and is available [here](https://github.com/PiotrRut/ATSBackend).
+We have chosen to create the system as a web app, based purely on React for the user interface, and Node & Express server-side, with MongoDB as our database. There is a separate repository for backend to this project, which handles the server requests and database connection, and is available [here](https://github.com/PiotrRut/ATSBackend).
 
 Since the project specification does not require the system to be working on mobile phones, there is no mobile and responsiveness optimisation to this web app.
 
