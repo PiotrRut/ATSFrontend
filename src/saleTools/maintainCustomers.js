@@ -277,7 +277,7 @@ class MaintainCustomers extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Register a new employee</DialogTitle>
+          <DialogTitle id="form-dialog-title">Register a new customer</DialogTitle>
           <DialogContent>
             <TextField
               required
