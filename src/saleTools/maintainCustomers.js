@@ -84,6 +84,7 @@ class MaintainCustomers extends React.Component {
      }
   }
 
+
   // Fetch a list of all customer and their cards when the component mounts and save into local array
   componentDidMount() {
     axios.get(`${APIURL}/customers/getAll?secret_token=${this.props.token}`)

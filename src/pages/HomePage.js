@@ -13,6 +13,7 @@ import Box from '@material-ui/core/Box'
 
 // Admin tab icons and components
 import MaintainStaff from '../adminTools/maintainStaff'
+import ManageAgency from '../adminTools/manageAgency'
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
 import StorageRoundedIcon from '@material-ui/icons/StorageRounded';
 import BackupRoundedIcon from '@material-ui/icons/BackupRounded';
@@ -86,6 +87,15 @@ export default function FullWidthTabs (props) {
     allTabs = props = [
     <TabPanel key={'ManageStaff'} value={value} index={0} dir={theme.direction}>
       <MaintainStaff staffRole={props.staffRole} token={props.token} username={props.username} />
+    </TabPanel>,
+    <TabPanel key={'BackupDatabase'} value={value} index={1} dir={theme.direction}>
+    </TabPanel>,
+    <TabPanel key={'ManageBlankStock'} value={value} index={2} dir={theme.direction}>
+    </TabPanel>,
+    <TabPanel key={'CreateReports'} value={value} index={3} dir={theme.direction}>
+    </TabPanel>,
+    <TabPanel key={'ManageAgency'} value={value} index={4} dir={theme.direction}>
+      <ManageAgency token={props.token}/>
     </TabPanel>,
     ]
     tabs = [

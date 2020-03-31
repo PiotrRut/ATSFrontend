@@ -178,7 +178,7 @@ class MaintainStaff extends React.Component {
         <Button color="blue" onClick={this.handleOpen}>
           Register a new employee
         </Button>
-        <Button size="small" onClick={this.handleOpenUpdate}>Update an existing employee</Button>
+        <Button onClick={this.handleOpenUpdate}>Update an existing employee</Button>
         <br/> <br/>
 
         {/* Card views for registered employees */}
@@ -314,7 +314,6 @@ class MaintainStaff extends React.Component {
             <FormControl required style={{width: "550px"}}>
               <InputLabel htmlFor="oldUsername">User to edit</InputLabel>
               <Select
-                autoFocus
                 name='oldUsername'
                 value={this.state.editedEmployee.oldUsername}
                 onChange={this.handleChangeInput}
