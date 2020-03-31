@@ -82,7 +82,7 @@ export default function FullWidthTabs (props) {
 
   let allTabs;
   // Create administrator views
-  if (props.staffRole == 'Admin') {
+  if (props.staffRole === 'Admin') {
     allTabs = props = [
     <TabPanel key={'ManageStaff'} value={value} index={0} dir={theme.direction}>
       <MaintainStaff staffRole={props.staffRole} token={props.token} username={props.username} />
@@ -103,7 +103,7 @@ export default function FullWidthTabs (props) {
       <ContactMailRoundedIcon/>
     ]
     // Create manager views
-  } else if (props.staffRole == 'Manager') {
+  } else if (props.staffRole === 'Manager') {
     allTabs = props = [
     <TabPanel key={'ExchangeRate'} value={value} index={0} dir={theme.direction}>
       <ExchangeRate user={props.staffRole} token={props.token}/>
@@ -126,7 +126,7 @@ export default function FullWidthTabs (props) {
       <LocalOfferRoundedIcon/>
     ]
     // Create travel advisor views
-  } else if (props.staffRole == 'Advisor') {
+  } else if (props.staffRole === 'Advisor') {
     allTabs = props = [
     <TabPanel key={'ExchangeRate'} value={value} index={0} dir={theme.direction}>
       <ExchangeRate user={props.staffRole} token={props.token}/>

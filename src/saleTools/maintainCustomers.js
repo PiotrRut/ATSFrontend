@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles';
 
 import Grid from "@material-ui/core/Grid"
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -223,7 +222,7 @@ class MaintainCustomers extends React.Component {
           Register a new customer
         </Button>
         <Button size="small" onClick={this.handleOpenUpdate} startIcon={<EditRoundedIcon/>}>
-        Update an existing customer
+          Update an existing customer
         </Button>
         <Button size="small" onClick={this.handleOpenCard} startIcon={<PaymentRoundedIcon/>}>
           Register new payment card
@@ -443,7 +442,6 @@ class MaintainCustomers extends React.Component {
             <FormControl required style={{width: "550px"}}>
               <InputLabel htmlFor="owner">Customer to assign new card</InputLabel>
               <Select
-                required
                 autoFocus
                 name='owner'
                 value={this.state.newCard.owner}

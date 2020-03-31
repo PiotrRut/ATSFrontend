@@ -1,10 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import Typography from '@material-ui/core/Typography'
 import APIURL from '../misc/backend.js'
 import '../App.scss'
 import moment from 'moment'
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
@@ -20,7 +18,7 @@ class ExchangeRate extends React.Component {
       helperText: '',
       error: false
     }
-  } 
+  }
 
   // Get the exchange rate on component mount and set state
   componentDidMount() {
@@ -57,18 +55,18 @@ class ExchangeRate extends React.Component {
     <Grid container spacing={0} direction="column" alignItems="center" justify="center" >
         <Grid item xs={3}>
             <TextField
-             id="standard-basic" 
-             label="New Exchange Rate" 
-             value={this.state.updatedRate} 
+             id="standard-basic"
+             label="New Exchange Rate"
+             value={this.state.updatedRate}
              onChange={this.handleInput}
              error={this.state.error}
              helperText={this.state.helperText}
              style={{width: '250px'}}
              />
-            <br/> <br/> 
+            <br/> <br/>
             <Button
-             disabled={this.state.error} 
-             onClick={this.updateExchangeRate} 
+             disabled={this.state.error}
+             onClick={this.updateExchangeRate}
              startIcon={<AttachMoneyRoundedIcon/>}>
                Update Exchange Rate
             </Button>
@@ -80,4 +78,3 @@ class ExchangeRate extends React.Component {
 }
 
 export default ExchangeRate
-

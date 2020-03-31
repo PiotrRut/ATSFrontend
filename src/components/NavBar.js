@@ -17,7 +17,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
-import TeamPic from '../assets/Teampic.png'
 
 
 
