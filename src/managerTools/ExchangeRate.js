@@ -61,7 +61,7 @@ class ExchangeRate extends React.Component {
              onChange={this.handleInput}
              error={this.state.error}
              helperText={this.state.helperText}
-             style={{width: '250px'}}
+             style={{width: '220px'}}
              />
             <br/> <br/>
             <Button
