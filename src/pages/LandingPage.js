@@ -15,7 +15,7 @@ function LandingPage() {
 
       <br/>
 
-      <h3> System brought to you by </h3>
+      <h3> Design with <span role="img" aria-label="sheep">♡</span> in London by</h3>
       <img alt='Team 6ix' style={{ width: '200px' }} src={TeamPic}/>
 
       <br/> <br/>

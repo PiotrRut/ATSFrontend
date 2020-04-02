@@ -71,7 +71,7 @@ class CommissionRate extends React.Component {
             {
               this.state.commissionRates.map(rate => (
                 <ListItem key={rate._id}>
-                  <ListItemText secondary={`Commission rate: ${rate.rate}%`}/>
+                  <ListItemText secondary={`Commission rate - ${rate.rate}%`}/>
                   <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="comments"
                       onClick={() => {this.deleteCommissionRate(rate._id)}}

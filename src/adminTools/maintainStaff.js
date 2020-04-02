@@ -25,7 +25,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Switch from '@material-ui/core/Switch';
 import Grow from '@material-ui/core/Grow';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
+import DeleteSweepRoundedIcon from '@material-ui/icons/DeleteSweepRounded';
 
 
 const styles = theme => ({
@@ -207,11 +207,11 @@ class MaintainStaff extends React.Component {
                     </CardContent>
                     <CardActions style={{ justifyContent: 'center' }}>
                         <Button
-                         startIcon={<HighlightOffRoundedIcon/>}
+                         startIcon={<DeleteSweepRoundedIcon/>}
                          variant="outlined"
                          color="secondary"
                          size="small"
-                         onClick={() => {this.deleteUser(user.username)}}>Delete User
+                         onClick={() => {this.deleteUser(user.username)}}>Remove User
                         </Button>
                     </CardActions>
                   </Card>
