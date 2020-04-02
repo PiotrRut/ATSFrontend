@@ -11,7 +11,7 @@ import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-// Admin tab icons and components
+// Admin tabs
 import MaintainStaff from '../adminTools/maintainStaff'
 import ManageAgency from '../adminTools/manageAgency'
 import GroupRoundedIcon from '@material-ui/icons/GroupRounded';
@@ -20,14 +20,17 @@ import BackupRoundedIcon from '@material-ui/icons/BackupRounded';
 import PictureAsPdfRoundedIcon from '@material-ui/icons/PictureAsPdfRounded';
 import ContactMailRoundedIcon from '@material-ui/icons/ContactMailRounded';
 
-// Manager tab icons
-import MaintainCustomers from '../saleTools/maintainCustomers'
+// Manager tabs
 import MonetizationOnRoundedIcon from '@material-ui/icons/MonetizationOnRounded';
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import ReceiptRoundedIcon from '@material-ui/icons/ReceiptRounded';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import LocalOfferRoundedIcon from '@material-ui/icons/LocalOfferRounded';
 import ExchangeRate from '../managerTools/ExchangeRate';
+import CommissionRate from '../managerTools/CommissionRate'
+
+// Sales tabs
+import MaintainCustomers from '../saleTools/maintainCustomers'
 
 function TabPanel (props) {
   const { children, value, index, ...other } = props
@@ -117,6 +120,17 @@ export default function FullWidthTabs (props) {
     allTabs = props = [
     <TabPanel key={'ExchangeRate'} value={value} index={0} dir={theme.direction}>
       <ExchangeRate user={props.staffRole} token={props.token}/>
+    </TabPanel>,
+    <TabPanel key={'AssignBlanks'} value={value} index={1} dir={theme.direction}>
+    </TabPanel>,
+    <TabPanel key={'CreateReports'} value={value} index={2} dir={theme.direction}>
+    </TabPanel>,
+    <TabPanel key={'RefundLogs'} value={value} index={3} dir={theme.direction}>
+    </TabPanel>,
+    <TabPanel key={'CommissionRate'} value={value} index={4} dir={theme.direction}>
+      <CommissionRate token={props.token}/>
+    </TabPanel>,
+    <TabPanel key={'CustomerDiscount'} value={value} index={5} dir={theme.direction}>
     </TabPanel>
     ]
     tabs = [

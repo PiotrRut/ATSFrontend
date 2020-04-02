@@ -65,7 +65,7 @@ class ExchangeRate extends React.Component {
              />
             <br/> <br/>
             <Button
-             disabled={this.state.error}
+             disabled={this.state.error || this.state.updatedRate < 1}
              onClick={this.updateExchangeRate}
              startIcon={<AttachMoneyRoundedIcon/>}>
                Update Exchange Rate
