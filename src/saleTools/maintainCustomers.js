@@ -24,7 +24,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Switch from '@material-ui/core/Switch';
 import Grow from '@material-ui/core/Grow';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import HighlightOffRoundedIcon from '@material-ui/icons/HighlightOffRounded';
+import DeleteSweepRoundedIcon from '@material-ui/icons/DeleteSweepRounded';
 
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
@@ -231,7 +231,7 @@ class MaintainCustomers extends React.Component {
         <br/> <br/>
 
         {/* Card views for registered customers */}
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Grid container justify="center" spacing={1}>
               {
@@ -256,7 +256,7 @@ class MaintainCustomers extends React.Component {
                     </CardContent>
                     <CardActions style={{ justifyContent: 'center' }}>
                         <Button
-                         startIcon={<HighlightOffRoundedIcon/>}
+                         startIcon={<DeleteSweepRoundedIcon/>}
                          variant="outlined"
                          color="secondary"
                          size="small"

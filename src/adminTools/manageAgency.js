@@ -90,7 +90,7 @@ class ManageAgency extends React.Component {
             <Fab
               variant="extended"
               size="small"
-              color="primary"
+              color="secondary"
               aria-label="edit"
               style={{paddingRight: '15px', paddingLeft: '15px'}}
               onClick={this.handleOpen}
