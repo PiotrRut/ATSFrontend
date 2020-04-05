@@ -2,21 +2,21 @@ import React from 'react'
 import axios from 'axios'
 import APIURL from '../misc/backend.js'
 import '../App.scss'
-import moment from 'moment'
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper'
 import DeleteSweepRoundedIcon from '@material-ui/icons/DeleteSweepRounded';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
-import Grow from '@material-ui/core/Grow';
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel"
+import FormControl from '@material-ui/core/FormControl';
 
 class CommissionRate extends React.Component {
   constructor (props) {
@@ -24,7 +24,10 @@ class CommissionRate extends React.Component {
 
     this.state = {
       commissionRates: [],
-      newRate: '',
+      newRate: {
+        rate: '',
+        type: ''
+      },
       checked: false,
     }
   }
@@ -38,7 +41,8 @@ class CommissionRate extends React.Component {
   // Add new comission rate
   addCommissionRate = () => {
       axios.post(`${APIURL}/commissions/addRate?secret_token=${this.props.token}`, {
-          rate: this.state.newRate
+          rate: this.state.newRate.rate,
+          type: this.state.newRate.type
       }).then(res => {
         window.location.reload()
         console.log(res)
@@ -55,9 +59,11 @@ class CommissionRate extends React.Component {
   }
 
   // Updating state and validating input from the text field
-  handleInput = (e) => {
-    this.setState({ newRate: e.target.value});
+  handleInput = event => {
+    this.state.newRate[event.target.name] = event.target.value
+    this.setState({ newRate: this.state.newRate});
   };
+
 
 
   render () {
@@ -71,7 +77,7 @@ class CommissionRate extends React.Component {
             {
               this.state.commissionRates.map(rate => (
                 <ListItem key={rate._id}>
-                  <ListItemText secondary={`Commission rate - ${rate.rate}%`}/>
+                  <ListItemText secondary={`Blanks of type ${rate.type} - ${rate.rate}% commission`} />
                   <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="comments"
                       onClick={() => {this.deleteCommissionRate(rate._id)}}
@@ -84,22 +90,42 @@ class CommissionRate extends React.Component {
             }
           </List>
         </Paper>
+      </Grid>
+      <FormControl style={{width: "250px", textAlign: "left"}}>
+        <InputLabel htmlFor="number">Type of blank</InputLabel>
+        <Select
+          name='type'
+          value={this.state.newRate.type}
+          onChange={this.handleInput}
+          variant='standard'
+          margin="dense"
+          id="type"
+          label="Type of blank"
+          fullWidth
+        >
+          <MenuItem value='101'>101</MenuItem>
+          <MenuItem value='201'>201</MenuItem>
+          <MenuItem value='420'>420</MenuItem>
+          <MenuItem value='440'>440</MenuItem>
+          <MenuItem value='444'>444</MenuItem>
+        </Select>
+      </FormControl>  
           <TextField
            id="standard-basic"
            label="Add a new rate (%)"
-           value={this.state.newRate}
+           name="rate"
+           value={this.state.newRate.rate}
            helperText={`Numbers only`}
            onChange={this.handleInput}
            style={{width: '250px'}}
-           />
-           <br/> <br/>
+           />        
+           <br/>
            <Button variant="small"
-             disabled={this.state.newRate <= 0}
+             disabled={this.state.newRate.rate <= 0}
              startIcon={<TrendingUpRoundedIcon/>}
              onClick={this.addCommissionRate}>
              Add a new rate
           </Button>
-      </Grid>
     </Grid>
     </div>
     )

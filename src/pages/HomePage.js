@@ -28,6 +28,7 @@ import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import LocalOfferRoundedIcon from '@material-ui/icons/LocalOfferRounded';
 import ExchangeRate from '../managerTools/ExchangeRate';
 import CommissionRate from '../managerTools/CommissionRate'
+import Discounts from '../managerTools/Discounts'
 
 // Sales tabs
 import MaintainCustomers from '../saleTools/maintainCustomers'
@@ -131,6 +132,7 @@ export default function FullWidthTabs (props) {
       <CommissionRate token={props.token}/>
     </TabPanel>,
     <TabPanel key={'CustomerDiscount'} value={value} index={5} dir={theme.direction}>
+      <Discounts user={props.staffRole} token={props.token}/>
     </TabPanel>
     ]
     tabs = [
