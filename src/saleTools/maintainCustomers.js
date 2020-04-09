@@ -250,6 +250,14 @@ class MaintainCustomers extends React.Component {
                         Status: {customer.customerStatus} customer
                       </Typography>
                       }
+                      { customer.discount ? 
+                      <Typography variant="body2" component="p">
+                        Discount: {customer.discount}
+                      </Typography> :
+                      <Typography color="textSecondary" variant="body2" component="p">
+                        No discount applied
+                      </Typography>
+                      }
                       <Typography variant="body2" component="p">
                         Number of payment cards: {customer.cards.length}
                       </Typography>

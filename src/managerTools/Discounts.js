@@ -166,20 +166,20 @@ class Discounts extends React.Component {
           </Grid>
         </Grid>
 
-        {/* Dialog for editing existing customers' details */}
+        {/* Dialog for setting existing customers' status */}
         <Dialog
           open={this.state.openUpdate}
           onClose={this.handleCloseUpdate}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Update customer details</DialogTitle>
+          <DialogTitle id="form-dialog-title">Set customer status and discount</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              First choose the customer you would like to edit, and update their details.
+              First choose the customer you would like to edit, then set their status and discount.
               <br/>
             </DialogContentText>
             <FormControl required style={{width: "550px"}}>
-              <InputLabel htmlFor="_id">Customer to edit</InputLabel>
+              <InputLabel htmlFor="_id">Choose a customer</InputLabel>
               <Select
                 autoFocus
                 name='_id'
