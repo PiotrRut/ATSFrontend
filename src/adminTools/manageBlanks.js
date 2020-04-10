@@ -67,13 +67,14 @@ class ManageBlanks extends React.Component {
       'from': this.state.newRange.from,
       'to': this.state.newRange.to,
     })
-    .then ( response => {
+    .then(response => {
       console.log(response)
-    }, (error) => {
-      console.log(error)
+      window.location.reload()
     })
-    window.location.reload()
-  } 
+    .catch(error => {
+      console.log(error)
+    });
+};
 
   deleteRange = (id) => {
     axios.delete(`${APIURL}/blanks/deleteRange?secret_token=${this.props.token}`, {

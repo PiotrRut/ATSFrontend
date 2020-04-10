@@ -19,7 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import DeleteSweepRoundedIcon from '@material-ui/icons/DeleteSweepRounded';
-import CloseIcon from '@material-ui/icons/Close' 
+import CloseIcon from '@material-ui/icons/Close'
 import Typography from '@material-ui/core/Typography'
 import APIURL from '../misc/backend.js'
 import InputLabel from "@material-ui/core/InputLabel"
@@ -95,15 +95,17 @@ class AssignBlanks extends React.Component {
       'to': this.state.newAssignment.to,
       'assignedTo': this.state.newAssignment.assignedTo
     })
-    .then ( response => {
+    .then(response => {
       console.log(response)
-    }, (error) => {
-      console.log(error)
+      window.location.reload()
     })
+    .catch(error => {
+      console.log(error)
+    });
     window.location.reload()
-  } 
+  };
 
-  
+
   handleInput = (e) => {
     this.state.newAssignment[e.target.name] = e.target.value
     this.setState({ newAssignment: this.state.newAssignment })
@@ -119,7 +121,7 @@ class AssignBlanks extends React.Component {
           <Grid item xs={12}></Grid>
             <Paper elevation={3} style={{ width: '40%', background: '#EEEEEE', marginTop: '20px'}}>
               <List dense>
-              { 
+              {
                   this.state.staff.map(user => (
                     <ListItem button key={user._id} onClick={() => { this.setState({ userSelected: user}, () => { this.openUserDialog()})} }>
                       <ListItemText
@@ -134,9 +136,9 @@ class AssignBlanks extends React.Component {
               </List>
             </Paper>
           </Grid>
-        <Dialog 
-          open={this.state.newAssignmentOpen} 
-          onClose={this.handleCloseAssign} 
+        <Dialog
+          open={this.state.newAssignmentOpen}
+          onClose={this.handleCloseAssign}
           aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Assign blanks to advisors</DialogTitle>
         <DialogContent>
@@ -146,10 +148,10 @@ class AssignBlanks extends React.Component {
             When selecting the subset of a range to assign, use whole numbers.
             <br/>
             For example, use 1 instead of 0000001
-          </DialogContentText>    
+          </DialogContentText>
               <FormControl required style={{width: "550px"}}>
                 <InputLabel htmlFor="type">Blank type</InputLabel>
-                  <Select 
+                  <Select
                     name='type'
                     value={this.state.newAssignment.type}
                     onChange={this.handleInput}
@@ -157,13 +159,13 @@ class AssignBlanks extends React.Component {
                     fullWidth
                     autoFocus
                   >
-                    <MenuItem value='101'>101 - 1 Coupon - Domestic</MenuItem>   
+                    <MenuItem value='101'>101 - 1 Coupon - Domestic</MenuItem>
                     <MenuItem value='201'>201 - 2 Coupons  - Domestic</MenuItem>
-                    <MenuItem value='420'>420 - 2 Coupons - Intn'l</MenuItem>   
+                    <MenuItem value='420'>420 - 2 Coupons - Intn'l</MenuItem>
                     <MenuItem value='440'>440 - Maunal - Intn'l </MenuItem>
                     <MenuItem value='444'>444 - 4 Coupons - Intn'l</MenuItem>
                   </Select>
-              </FormControl> 
+              </FormControl>
               <FormControl required style={{width: "550px"}}>
                 <InputLabel htmlFor="assignedTo">User to assign</InputLabel>
                   <Select
@@ -207,10 +209,10 @@ class AssignBlanks extends React.Component {
       </Dialog>
 
 
-      <Dialog 
-        open={this.state.userDialog} 
-        onClose={this.closeUserDialog} 
-        aria-labelledby="form-dialog-title" 
+      <Dialog
+        open={this.state.userDialog}
+        onClose={this.closeUserDialog}
+        aria-labelledby="form-dialog-title"
         scroll="paper"
         fullWidth
         maxWidth="xs"
@@ -237,4 +239,3 @@ class AssignBlanks extends React.Component {
 }
 
 export default AssignBlanks
-
