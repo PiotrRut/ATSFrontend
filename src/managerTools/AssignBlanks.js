@@ -25,10 +25,6 @@ import APIURL from '../misc/backend.js'
 import InputLabel from "@material-ui/core/InputLabel"
 import FormControl from '@material-ui/core/FormControl';
 
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import '../App.scss'
 
@@ -42,6 +38,10 @@ class AssignBlanks extends React.Component {
       blanks: [ ],
       blanksFree: [ ],
       staff: [ ],
+      userSelected: {
+        blanks: []
+      },
+      userDialog: false,
       newAssignment: {
         type: '',
         from: '',
@@ -80,6 +80,14 @@ class AssignBlanks extends React.Component {
     this.setState({ newAssignmentOpen: false })
   }
 
+  openUserDialog = () => {
+    this.setState({ userDialog: true })
+  }
+
+  closeUserDialog = () => {
+    this.setState({ userDialog: false })
+  }
+
   assignBlanks = () => {
     axios.post(`${APIURL}/blanks/assignBlanks?secret_token=${this.props.token}`, {
       'type': this.state.newAssignment.type,
@@ -113,10 +121,10 @@ class AssignBlanks extends React.Component {
               <List dense>
               { 
                   this.state.staff.map(user => (
-                    <ListItem button key={user._id}>
+                    <ListItem button key={user._id} onClick={() => { this.setState({ userSelected: user}, () => { this.openUserDialog()})} }>
                       <ListItemText
                       primary={`${user.name} ${user.surname}`}
-                      secondary={` Assigned blanks: ${user.blanks.length}`}
+                      secondary={` Assigned blanks: ${user.blanks.length} // Press for details`}
                     />
                     <ListItemSecondaryAction>
                     </ListItemSecondaryAction>
@@ -169,7 +177,7 @@ class AssignBlanks extends React.Component {
                     fullWidth
                   >
                     { this.state.staff.map(user => (
-                      <MenuItem value={user.username}>{user.username} - {user.name} {user.surname} ({user.role})</MenuItem>
+                      <MenuItem value={user._id}>{user.username} - {user.name} {user.surname} ({user.role})</MenuItem>
                       ))
                     }
                   </Select>
@@ -191,12 +199,38 @@ class AssignBlanks extends React.Component {
                   fullWidth
                 />
             <DialogActions>
-              <Button onClick={this.addNewRange} variant='small'>
-                Add new range
+              <Button onClick={this.assignBlanks} variant='small'>
+                Assign blanks
               </Button>
             </DialogActions>
         </DialogContent>
       </Dialog>
+
+
+      <Dialog 
+        open={this.state.userDialog} 
+        onClose={this.closeUserDialog} 
+        aria-labelledby="form-dialog-title" 
+        scroll="paper"
+        fullWidth
+        maxWidth="xs"
+      >
+        <DialogTitle id="form-dialog-title">Blanks assigned to {this.state.userSelected.name}</DialogTitle>
+        <DialogContent>
+          <DialogContent dividers>
+              {
+              this.state.userSelected.blanks.map(blank => (
+                <DialogContentText style={{ textAlign: "center" }}>
+                  {blank.type}{blank.number} - Status
+                  </DialogContentText>
+              ))
+              }
+          </DialogContent>
+        </DialogContent>
+        <DialogActions>
+        </DialogActions>
+      </Dialog>
+
       </div>
     )
   }
