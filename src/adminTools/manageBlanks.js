@@ -34,15 +34,11 @@ class ManageBlanks extends React.Component {
 
     this.state = {
       ranges: [ ],
-      salesAdvisors: [ ],
       newRange: {
         type: '',
         from: '',
         to: ''
       },
-      selectedRange: { blanks: [] },
-      selectedRangeSearch: '',
-      rangeSelectedDialog: false,
       newRangeOpen: false,
     }
   }
@@ -53,7 +49,7 @@ class ManageBlanks extends React.Component {
         console.log(res)
       }))
 
-      axios.get(`${APIURL}/staff/getAll?secret_token=${this.props.token}`)
+    axios.get(`${APIURL}/staff/getAll?secret_token=${this.props.token}`)
       .then(res => this.setState({ salesAdvisors: res.data }))
   }
 

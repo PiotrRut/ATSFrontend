@@ -30,6 +30,7 @@ import LocalOfferRoundedIcon from '@material-ui/icons/LocalOfferRounded';
 import ExchangeRate from '../managerTools/ExchangeRate';
 import CommissionRate from '../managerTools/CommissionRate'
 import Discounts from '../managerTools/Discounts'
+import AssignBlanks from '../managerTools/AssignBlanks'
 
 // Sales tabs
 import MaintainCustomers from '../saleTools/maintainCustomers'
@@ -125,6 +126,7 @@ export default function FullWidthTabs (props) {
       <ExchangeRate user={props.staffRole} token={props.token}/>
     </TabPanel>,
     <TabPanel key={'AssignBlanks'} value={value} index={1} dir={theme.direction}>
+      <AssignBlanks staffRole={props.staffRole} token={props.token} username={props.username}/>
     </TabPanel>,
     <TabPanel key={'CreateReports'} value={value} index={2} dir={theme.direction}>
     </TabPanel>,
