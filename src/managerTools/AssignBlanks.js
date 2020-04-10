@@ -62,9 +62,13 @@ class AssignBlanks extends React.Component {
       .then(response => response.data.filter(blank => (blank.assignedTo ? false : true)))
       .then(response => this.setState({ blanksFree: response }))
 
+
     axios.get(`${APIURL}/staff/getAll?secret_token=${this.props.token}`)
       .then(response => response.data.filter(user => user.role.toString() === 'Advisor'))
-      .then(response => this.setState({ staff: response }))
+      .then(response => this.setState({ staff: response }, () => {
+        console.log(response)
+      }))
+
 
     axios.get(`${APIURL}/blanks/getRange?secret_token=${this.props.token}`)
       .then(response => this.setState({ ranges: response.data }, () => {
