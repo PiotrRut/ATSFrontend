@@ -25,9 +25,18 @@ import APIURL from '../misc/backend.js'
 import InputLabel from "@material-ui/core/InputLabel"
 import FormControl from '@material-ui/core/FormControl';
 
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 
 import '../App.scss'
 
+// TODO: Add dateAssigned field
 
 class AssignBlanks extends React.Component {
   constructor (props) {
@@ -46,7 +55,8 @@ class AssignBlanks extends React.Component {
         type: '',
         from: '',
         to: '',
-        assignedTo: ''
+        assignedTo: '',
+        dateAssigned: new Date()
       },
       newAssignmentOpen: false,
     }
@@ -115,6 +125,12 @@ class AssignBlanks extends React.Component {
   // Handling the input from the text fields and updating state
   handleInput = (e) => {
     this.state.newAssignment[e.target.name] = e.target.value
+    this.setState({ newAssignment: this.state.newAssignment })
+  }
+
+  // Handling the input from the date picker
+  handleDateInput = (date) => {
+    this.state.newAssignment.dateAssigned = date
     this.setState({ newAssignment: this.state.newAssignment })
   }
 
@@ -197,6 +213,7 @@ class AssignBlanks extends React.Component {
                   name='from'
                   required
                   label="Blanks from"
+                  value={this.state.newAssignment.from}
                   onChange={this.handleInput}
                   variant='standard'
                   fullWidth
@@ -204,11 +221,26 @@ class AssignBlanks extends React.Component {
                 <TextField
                   name='to'
                   required
+                  value={this.state.newAssignment.to}
                   label="Range to"
                   onChange={this.handleInput}
                   variant='standard'
                   fullWidth
                 />
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    margin="normal"
+                    name="dateAssigned"
+                    id="date-picker-dialog"
+                    label="Date of assignment"
+                    format="yyyy-MM-dd"
+                    onChange={this.handleDateInput}
+                    value={this.state.newAssignment.dateAssigned}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
             <DialogActions>
               <Button onClick={this.assignBlanks} variant='small'>
                 Assign blanks

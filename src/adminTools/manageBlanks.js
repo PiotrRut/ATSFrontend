@@ -25,8 +25,17 @@ import APIURL from '../misc/backend.js'
 import InputLabel from "@material-ui/core/InputLabel"
 import FormControl from '@material-ui/core/FormControl';
 
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 import '../App.scss'
 
+// TODO: Add dateCreated field
 
 class ManageBlanks extends React.Component {
   constructor (props) {
@@ -37,7 +46,8 @@ class ManageBlanks extends React.Component {
       newRange: {
         type: '',
         from: '',
-        to: ''
+        to: '',
+        dateCreated: new Date()
       },
       newRangeOpen: false,
     }
@@ -70,6 +80,7 @@ class ManageBlanks extends React.Component {
       'type': this.state.newRange.type,
       'from': this.state.newRange.from,
       'to': this.state.newRange.to,
+      'dateCreated': this.state.newRange.dateCreated
     })
     .then(res => {
       console.log(res)
@@ -89,9 +100,15 @@ class ManageBlanks extends React.Component {
       })
   }
 
-  // Handlign input from text fields and updating state
+  // Handling input from text fields and updating state
   handleInput = (event) => {
     this.state.newRange[event.target.name] = event.target.value
+    this.setState({ newRange: this.state.newRange })
+  }
+
+  // Handlign the input from the date picker
+  handleDateInput = (date) => {
+    this.state.newRange.dateCreated = date
     this.setState({ newRange: this.state.newRange })
   }
 
@@ -156,6 +173,7 @@ class ManageBlanks extends React.Component {
                 <TextField
                   name='from'
                   required
+                  value={this.state.newRange.from}
                   label="Range from"
                   onChange={this.handleInput}
                   variant='standard'
@@ -164,11 +182,26 @@ class ManageBlanks extends React.Component {
                 <TextField
                   name='to'
                   required
+                  value={this.state.newRange.to}
                   label="Range to"
                   onChange={this.handleInput}
                   variant='standard'
                   fullWidth
                 />
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  margin="normal"
+                  name="dateCreated"
+                  id="date-picker-dialog"
+                  label="Date of assignment"
+                  format="yyyy-MM-dd"
+                  onChange={this.handleDateInput}
+                  value={this.state.newRange.dateCreated}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+                </MuiPickersUtilsProvider>
             <DialogActions>
               <Button onClick={this.addNewRange} variant='small'>
                 Add new range
