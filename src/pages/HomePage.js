@@ -33,7 +33,10 @@ import Discounts from '../managerTools/Discounts'
 import AssignBlanks from '../managerTools/AssignBlanks'
 
 // Sales tabs
+import LocalAirportRoundedIcon from '@material-ui/icons/LocalAirportRounded';
 import MaintainCustomers from '../saleTools/maintainCustomers'
+import Sale from '../saleTools/Sale'
+
 
 function TabPanel (props) {
   const { children, value, index, ...other } = props
@@ -163,15 +166,20 @@ export default function FullWidthTabs (props) {
     </TabPanel>,
     <TabPanel key={'MaintainCustomers'} value={value} index={1} dir={theme.direction}>
       <MaintainCustomers user={props.staffRole} token={props.token}/>
+    </TabPanel>,
+    <TabPanel key={'NewSale'} value={value} index={2} dir={theme.direction}>
+        <Sale user={props.staffRole} token={props.token} mongoID={props.mongoID}/>
     </TabPanel>
     ]
     tabs = [
       'Exchange Rate',
-      'Maintain Customers'
+      'Maintain Customers',
+      'New Sale'
     ]
     icons = [
       <MonetizationOnRoundedIcon/>,
-      <GroupRoundedIcon/>
+      <GroupRoundedIcon/>,
+      <LocalAirportRoundedIcon/>
     ]
   }
 

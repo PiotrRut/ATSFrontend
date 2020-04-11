@@ -17,7 +17,8 @@ class App extends React.Component {
       userLoggedIn: false,
       userID: null,
       userRole: null,
-      staffName: null
+      staffName: null,
+      mongoID: null
     }
 
     // if there is a token currently in local localStorage
@@ -38,7 +39,8 @@ class App extends React.Component {
         this.setState({
           userID: res.data.user.username,
           userRole: res.data.user.role,
-          staffName: res.data.user.name
+          staffName: res.data.user.name,
+          mongoID: res.data.user._id
         });
       });
   }
@@ -56,7 +58,7 @@ class App extends React.Component {
               {/* If logged in redirect to homepage and mount appropriate components, else display landing*/}
             {
               this.state.userLoggedIn
-              ? <HomePage token={this.state.usertoken} staffRole={this.state.userRole} username={this.state.userID} />
+              ? <HomePage token={this.state.usertoken} staffRole={this.state.userRole} username={this.state.userID} mongoID={this.state.mongoID}/>
               : <LandingPage/>
             }
           </div>
