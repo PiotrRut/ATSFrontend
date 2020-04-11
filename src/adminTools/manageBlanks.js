@@ -19,7 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
 import DeleteSweepRoundedIcon from '@material-ui/icons/DeleteSweepRounded';
-import CloseIcon from '@material-ui/icons/Close' 
+import CloseIcon from '@material-ui/icons/Close'
 import Typography from '@material-ui/core/Typography'
 import APIURL from '../misc/backend.js'
 import InputLabel from "@material-ui/core/InputLabel"
@@ -67,8 +67,8 @@ class ManageBlanks extends React.Component {
       'from': this.state.newRange.from,
       'to': this.state.newRange.to,
     })
-    .then(response => {
-      console.log(response)
+    .then(res => {
+      console.log(res)
       window.location.reload()
     })
     .catch(error => {
@@ -76,22 +76,14 @@ class ManageBlanks extends React.Component {
     });
 };
 
-  deleteRange = (id) => {
-    axios.delete(`${APIURL}/blanks/deleteRange?secret_token=${this.props.token}`, {
-        data: {
-            '_id': id,
-        }
-    })
-    .then(response => {
-        console.log(response)
-        this.setState({ ranges: this.state.ranges.filter( range => range._id !== id) })
+  deleteRange = (_id) => {
+      axios.delete(`${APIURL}/blanks/deleteRange?secret_token=${this.props.token}`, {
+        data: { '_id': _id }
+      }).then(res => {
+        window.location.reload()
       })
-      .catch(error => {
-        console.log(error)
-      });
-    window.location.reload()
-  };
-  
+  }
+
   handleInput = (event) => {
     this.state.newRange[event.target.name] = event.target.value
     this.setState({ newRange: this.state.newRange })
@@ -110,7 +102,7 @@ class ManageBlanks extends React.Component {
           <Grid item xs={12}></Grid>
             <Paper elevation={3} style={{ width: '50%', background: '#EEEEEE', marginTop: '20px'}}>
               <List dense>
-                { 
+                {
                   this.state.ranges.map(range => (
                     <ListItem button key={range._id}>
                       <ListItemText
@@ -127,18 +119,18 @@ class ManageBlanks extends React.Component {
               </List>
             </Paper>
           </Grid>
-        <Dialog 
-          open={this.state.newRangeOpen} 
-          onClose={this.handleCloseNewRange} 
+        <Dialog
+          open={this.state.newRangeOpen}
+          onClose={this.handleCloseNewRange}
           aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add a new range</DialogTitle>
         <DialogContent>
           <DialogContentText>
             First select type of blank, then provide the first and last blank to be included
-          </DialogContentText>    
+          </DialogContentText>
               <FormControl required style={{width: "550px"}}>
               <InputLabel htmlFor="type">Blank type</InputLabel>
-                <Select 
+                <Select
                   name='type'
                   value={this.state.newRange.type}
                   onChange={this.handleInput}
@@ -146,13 +138,13 @@ class ManageBlanks extends React.Component {
                   fullWidth
                   autoFocus
                 >
-                  <MenuItem value='101'>101 - 1 Coupon - Domestic</MenuItem>   
+                  <MenuItem value='101'>101 - 1 Coupon - Domestic</MenuItem>
                   <MenuItem value='201'>201 - 2 Coupons  - Domestic</MenuItem>
-                  <MenuItem value='420'>420 - 2 Coupons - Intn'l</MenuItem>   
+                  <MenuItem value='420'>420 - 2 Coupons - Intn'l</MenuItem>
                   <MenuItem value='440'>440 - Maunal - Intn'l </MenuItem>
                   <MenuItem value='444'>444 - 4 Coupons - Intn'l</MenuItem>
                 </Select>
-              </FormControl> 
+              </FormControl>
                 <TextField
                   name='from'
                   required
@@ -182,4 +174,3 @@ class ManageBlanks extends React.Component {
 }
 
 export default ManageBlanks
-

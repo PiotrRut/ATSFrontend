@@ -109,7 +109,7 @@ class CommissionRate extends React.Component {
           <MenuItem value='440'>440</MenuItem>
           <MenuItem value='444'>444</MenuItem>
         </Select>
-      </FormControl>  
+      </FormControl>
           <TextField
            id="standard-basic"
            label="Add a new rate (%)"
@@ -118,7 +118,7 @@ class CommissionRate extends React.Component {
            helperText={`Numbers only`}
            onChange={this.handleInput}
            style={{width: '250px'}}
-           />        
+           />
            <br/>
            <Button variant="small"
              disabled={this.state.newRate.rate <= 0}

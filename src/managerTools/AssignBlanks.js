@@ -54,25 +54,25 @@ class AssignBlanks extends React.Component {
 
   componentDidMount() {
     axios.get(`${APIURL}/blanks/getAll?secret_token=${this.props.token}`)
-      .then(response => this.setState({ blanks: response.data }, () => {
-        console.log(response)
+      .then(res => this.setState({ blanks: res.data }, () => {
+        console.log(res)
       }))
 
     axios.get(`${APIURL}/blanks/getAll?secret_token=${this.props.token}`)
-      .then(response => response.data.filter(blank => (blank.assignedTo ? false : true)))
-      .then(response => this.setState({ blanksFree: response }))
+      .then(res => res.data.filter(blank => (blank.assignedTo ? false : true)))
+      .then(res => this.setState({ blanksFree: res }))
 
 
     axios.get(`${APIURL}/staff/getAll?secret_token=${this.props.token}`)
-      .then(response => response.data.filter(user => user.role.toString() === 'Advisor'))
-      .then(response => this.setState({ staff: response }, () => {
-        console.log(response)
+      .then(res => res.data.filter(user => user.role.toString() === 'Advisor'))
+      .then(res => this.setState({ staff: res }, () => {
+        console.log(res)
       }))
 
 
     axios.get(`${APIURL}/blanks/getRange?secret_token=${this.props.token}`)
-      .then(response => this.setState({ ranges: response.data }, () => {
-      console.log(response)
+      .then(res => this.setState({ ranges: res.data }, () => {
+      console.log(res)
     }))
   }
 
@@ -99,14 +99,13 @@ class AssignBlanks extends React.Component {
       'to': this.state.newAssignment.to,
       'assignedTo': this.state.newAssignment.assignedTo
     })
-    .then(response => {
-      console.log(response)
+    .then(res => {
+      console.log(res)
       window.location.reload()
     })
     .catch(error => {
       console.log(error)
     });
-    window.location.reload()
   };
 
 
