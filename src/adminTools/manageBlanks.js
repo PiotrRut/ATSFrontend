@@ -43,6 +43,7 @@ class ManageBlanks extends React.Component {
     }
   }
 
+  // Get all users and ranges of blanks upon component mount
   componentDidMount() {
     axios.get(`${APIURL}/blanks/getRange?secret_token=${this.props.token}`)
       .then(res => this.setState({ ranges: res.data }, () => {
@@ -53,14 +54,17 @@ class ManageBlanks extends React.Component {
       .then(res => this.setState({ salesAdvisors: res.data }))
   }
 
+  // Opening new range dialog
   handleOpenNewRange = () => {
     this.setState({ newRangeOpen: true })
   }
 
+  // Closing new range dialog
   handleCloseNewRange = () => {
     this.setState({ newRangeOpen: false })
   }
 
+  // Adding a new range of blanks to the system
   addNewRange = () => {
     axios.post(`${APIURL}/blanks/addBlanks?secret_token=${this.props.token}`, {
       'type': this.state.newRange.type,
@@ -76,6 +80,7 @@ class ManageBlanks extends React.Component {
     });
 };
 
+  // Deleting ALL blanks from a range
   deleteRange = (_id) => {
       axios.delete(`${APIURL}/blanks/deleteRange?secret_token=${this.props.token}`, {
         data: { '_id': _id }
@@ -84,6 +89,7 @@ class ManageBlanks extends React.Component {
       })
   }
 
+  // Handlign input from text fields and updating state
   handleInput = (event) => {
     this.state.newRange[event.target.name] = event.target.value
     this.setState({ newRange: this.state.newRange })
@@ -119,6 +125,8 @@ class ManageBlanks extends React.Component {
               </List>
             </Paper>
           </Grid>
+
+        {/*Dialog for adding a new range of blanks*/}
         <Dialog
           open={this.state.newRangeOpen}
           onClose={this.handleCloseNewRange}

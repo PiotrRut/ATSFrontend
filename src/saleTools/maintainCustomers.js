@@ -169,13 +169,13 @@ class MaintainCustomers extends React.Component {
     this.setState({ newCustomer: this.state.newCustomer});
   };
 
-   // Updating customer details for editing customers
+  // Updating customer details for editing customers
   handleChangeInput = event => {
     this.state.editedCustomer[event.target.name] = event.target.value
     this.setState({ editedCustomer: this.state.editedCustomer});
   };
 
-   // Updating customer details for assigning new cards
+  // Updating customer details for assigning new cards
   handleCardInput = event => {
     this.state.newCard[event.target.name] = event.target.value
     this.setState({ newCard: this.state.newCard});
@@ -197,7 +197,7 @@ class MaintainCustomers extends React.Component {
     this.setState({ openUpdate: false });
   };
 
-// Dialog open and close for adding new cards
+  // Dialog open and close for adding new cards
   handleOpenCard = () => {
     this.setState({ openCard: true });
   };
@@ -250,7 +250,7 @@ class MaintainCustomers extends React.Component {
                         Status: {customer.customerStatus} customer
                       </Typography>
                       }
-                      { customer.discount ? 
+                      { customer.discount ?
                       <Typography variant="body2" component="p">
                         Discount: {customer.discount}
                       </Typography> :

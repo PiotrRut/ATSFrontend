@@ -52,46 +52,50 @@ class AssignBlanks extends React.Component {
     }
   }
 
+  // Get all the blanks, ranges and staff upon component mount
   componentDidMount() {
     axios.get(`${APIURL}/blanks/getAll?secret_token=${this.props.token}`)
       .then(res => this.setState({ blanks: res.data }, () => {
         console.log(res)
       }))
 
+    // Filter out blanks that are not assigned assigned
     axios.get(`${APIURL}/blanks/getAll?secret_token=${this.props.token}`)
       .then(res => res.data.filter(blank => (blank.assignedTo ? false : true)))
       .then(res => this.setState({ blanksFree: res }))
 
-
+    // Get only staff with the 'Advisor' role
     axios.get(`${APIURL}/staff/getAll?secret_token=${this.props.token}`)
       .then(res => res.data.filter(user => user.role.toString() === 'Advisor'))
       .then(res => this.setState({ staff: res }, () => {
         console.log(res)
       }))
 
-
+    // Get all the ranges currently stored
     axios.get(`${APIURL}/blanks/getRange?secret_token=${this.props.token}`)
       .then(res => this.setState({ ranges: res.data }, () => {
       console.log(res)
     }))
   }
 
+  // Opening the assign dialog
   handleOpenAssign = () => {
     this.setState({ newAssignmentOpen: true })
   }
-
+  // Closoing the assign dialog
   handleCloseAssign = () => {
     this.setState({ newAssignmentOpen: false })
   }
-
+  // Opening the user dialog
   openUserDialog = () => {
     this.setState({ userDialog: true })
   }
-
+  // Closing the user dialog
   closeUserDialog = () => {
     this.setState({ userDialog: false })
   }
 
+  // Assigning new blanks to an advisor
   assignBlanks = () => {
     axios.post(`${APIURL}/blanks/assignBlanks?secret_token=${this.props.token}`, {
       'type': this.state.newAssignment.type,
@@ -108,7 +112,7 @@ class AssignBlanks extends React.Component {
     });
   };
 
-
+  // Handling the input from the text fields and updating state
   handleInput = (e) => {
     this.state.newAssignment[e.target.name] = e.target.value
     this.setState({ newAssignment: this.state.newAssignment })
@@ -124,7 +128,7 @@ class AssignBlanks extends React.Component {
           <Grid item xs={12}></Grid>
             <Paper elevation={3} style={{ width: '40%', background: '#EEEEEE', marginTop: '20px'}}>
               <List dense>
-              {
+                {
                   this.state.staff.map(user => (
                     <ListItem button key={user._id} onClick={() => { this.setState({ userSelected: user}, () => { this.openUserDialog()})} }>
                       <ListItemText
@@ -139,6 +143,8 @@ class AssignBlanks extends React.Component {
               </List>
             </Paper>
           </Grid>
+
+        {/*Dialog for assignign new blanks to an advisor*/}
         <Dialog
           open={this.state.newAssignmentOpen}
           onClose={this.handleCloseAssign}
@@ -211,7 +217,7 @@ class AssignBlanks extends React.Component {
         </DialogContent>
       </Dialog>
 
-
+      {/*Displaying all blanks assigned to an advisor*/}
       <Dialog
         open={this.state.userDialog}
         onClose={this.closeUserDialog}
@@ -224,11 +230,11 @@ class AssignBlanks extends React.Component {
         <DialogContent>
           <DialogContent dividers>
               {
-              this.state.userSelected.blanks.map(blank => (
-                <DialogContentText style={{ textAlign: "center" }}>
-                  {blank.type}{blank.number} - Status
-                  </DialogContentText>
-              ))
+                this.state.userSelected.blanks.map(blank => (
+                  <DialogContentText style={{ textAlign: "center" }}>
+                    {blank.type}{blank.number} - Status
+                    </DialogContentText>
+                ))
               }
           </DialogContent>
         </DialogContent>
