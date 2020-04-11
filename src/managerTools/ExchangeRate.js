@@ -28,7 +28,7 @@ class ExchangeRate extends React.Component {
 
   // Post the updated changes to the database
   updateExchangeRate = () => {
-      axios.patch(`${APIURL}/sales/updateExchangeRate?secret_token=${this.props.token}`, {
+      axios.post(`${APIURL}/sales/updateExchangeRate?secret_token=${this.props.token}`, {
           '_id': this.state.exchangeRate._id,
           'rate': this.state.updatedRate
       }).then(res => {

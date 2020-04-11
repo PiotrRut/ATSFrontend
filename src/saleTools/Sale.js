@@ -144,6 +144,25 @@ class Sale extends React.Component {
             </Select>
         </FormControl>
       </Grid>
+      <Grid item xs={3}>
+      <FormControl required required style={{width: "200px"}}>
+          <InputLabel htmlFor="saleType">Payment method</InputLabel>
+            <Select
+              name='paymentType'
+              value={this.state.newSale.paymentType}
+              onChange={this.handleInput}
+              variant='standard'
+              margin="dense"
+              id="paymentType"
+              label="Payment method"
+              fullWidth
+              style={{textAlign: 'left'}}
+          >
+              <MenuItem value='Cash'>Cash</MenuItem>
+              <MenuItem value='Card'>Card</MenuItem>
+            </Select>
+        </FormControl>
+      </Grid>
     </Grid>
     <br/>
     <Grid container spacing={4} direction="row" alignItems="center" justify="center" >
@@ -261,6 +280,7 @@ class Sale extends React.Component {
       </Grid>
       <Grid item xs={2}>
       <TextField
+        disabled={this.state.newSale.saleType == 'Domestic'}
         variant="standard"
         value={this.state.newSale.otherTaxes}
         onChange={this.handleInput}
@@ -296,6 +316,7 @@ class Sale extends React.Component {
       </Grid>
       <Grid item xs={2}>
       <TextField
+        disabled={this.state.newSale.paymentType == 'Cash'}
         variant="standard"
         value={this.state.newSale.cardNumber}
         onChange={this.handleInput}
@@ -308,7 +329,7 @@ class Sale extends React.Component {
       </Grid>
       <Grid item xs={2}>
       <TextField
-        required
+        disabled={this.state.newSale.paymentType == 'Cash'}
         variant="standard"
         value={this.state.newSale.issuer}
         onChange={this.handleInput}
