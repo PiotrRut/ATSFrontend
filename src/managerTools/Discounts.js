@@ -58,6 +58,10 @@ class Discounts extends React.Component {
       editedCustomer: {
         status: null,
         discount: null,
+        fixedDiscount: null,
+        flexibleU1000: null,
+        flexibleO1000: null,
+        flexibleO2000: null,
         _id: null
       },
       checked: false,
@@ -78,7 +82,11 @@ class Discounts extends React.Component {
     axios.patch(`${APIURL}/customers/updateCustomer?secret_token=${this.props.token}`, {
       'customerStatus': this.state.editedCustomer.status,
       'discount': this.state.editedCustomer.discount,
-      '_id': this.state.editedCustomer._id
+      '_id': this.state.editedCustomer._id,
+      'fixedDiscount': this.state.fixedDiscount,
+      'flexibleU1000': this.state.flexibleU1000,
+      'flexibleO1000': this.state.flexibleO1000,
+      'flexibleO2000': this.state.flexibleO2000,
     })
       .then(response => {
         console.log(response)
@@ -176,6 +184,7 @@ class Discounts extends React.Component {
           <DialogContent>
             <DialogContentText>
               First choose the customer you would like to edit, then set their status and discount.
+              Note that discounts can only be applied to valued customers.
               <br/>
             </DialogContentText>
             <FormControl required style={{width: "550px"}}>
@@ -197,24 +206,81 @@ class Discounts extends React.Component {
                 }
               </Select>
             </FormControl>
+            <FormControl required style={{width: "550px"}}>
+              <InputLabel htmlFor="status">Status</InputLabel>
+              <Select
+                name='status'
+                value={this.state.editedCustomer.status}
+                onChange={this.handleChangeInput}
+                variant='standard'
+                margin="dense"
+                id="status"
+                label="Status"
+                fullWidth
+              >
+                  <MenuItem value='Regular'>Regular</MenuItem>
+                  <MenuItem value='Valued'>Valued</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl required style={{width: "550px"}}>
+              <InputLabel htmlFor="discount">Discount type</InputLabel>
+              <Select
+                name='discount'
+                disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status}
+                value={this.state.editedCustomer.discount}
+                onChange={this.handleChangeInput}
+                variant='standard'
+                margin="dense"
+                id="discount"
+                label="Discount type"
+                fullWidth
+              >
+                  <MenuItem value='Flexible'>Flexible</MenuItem>
+                  <MenuItem value='Fixed'>Fixed</MenuItem>
+              </Select>
+            </FormControl>
             <TextField
               variant="standard"
-              value={this.state.editedCustomer.status}
+              disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status}
+              value={this.state.editedCustomer.fixedDiscount}
               onChange={this.handleChangeInput}
-              name="status"
+              name="fixedDiscount"
               margin="dense"
-              id="status"
-              label="Customer's status"
+              id="fixedDiscount"
+              label="Fixed discount % (if applicable)"
               fullWidth
             />
             <TextField
               variant="standard"
-              value={this.state.editedCustomer.discount}
+              disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status}
+              value={this.state.editedCustomer.flexibleU1000}
               onChange={this.handleChangeInput}
-              name="discount"
+              name="flexibleU1000"
               margin="dense"
-              id="discount"
-              label="Discount type"
+              id="flexibleU1000"
+              label="Flexible < £1000 (if applicable)"
+              fullWidth
+            />
+            <TextField
+              variant="standard"
+              disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status}
+              value={this.state.editedCustomer.flexibleO1000}
+              onChange={this.handleChangeInput}
+              name="flexibleO1000 (if applicable)"
+              margin="dense"
+              id="flexibleO1000"
+              label="Flexible >= £1000 & < £2000 (if applicable)"
+              fullWidth
+            />
+            <TextField
+              variant="standard"
+              disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status}
+              value={this.state.editedCustomer.flexibleO2000}
+              onChange={this.handleChangeInput}
+              name="flexibleO2000"
+              margin="dense"
+              id="flexibleO2000"
+              label="Flexible > £2000 (if applicable)"
               fullWidth
             />
             <DialogActions>

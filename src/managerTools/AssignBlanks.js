@@ -264,7 +264,7 @@ class AssignBlanks extends React.Component {
               {
                 this.state.userSelected.blanks.map(blank => (
                   <DialogContentText style={{ textAlign: "center" }}>
-                    {blank.type}{blank.number} - Status
+                    {blank.type}{blank.number} {blank.void} {blank.sold}
                     </DialogContentText>
                 ))
               }
