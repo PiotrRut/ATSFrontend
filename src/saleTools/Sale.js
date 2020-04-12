@@ -202,7 +202,7 @@ class Sale extends React.Component {
               fullWidth
               style={{textAlign: 'left'}}
           >
-             <ListSubheader>Registered Users</ListSubheader>
+             <ListSubheader>Registered Customers</ListSubheader>
             { this.state.allCustomers.map(customer => (
               <MenuItem value={customer._id}>{customer.name} {customer.surname} - {customer.customerStatus}</MenuItem>
             ))}

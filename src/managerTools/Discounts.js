@@ -83,10 +83,10 @@ class Discounts extends React.Component {
       'customerStatus': this.state.editedCustomer.status,
       'discount': this.state.editedCustomer.discount,
       '_id': this.state.editedCustomer._id,
-      'fixedDiscount': this.state.fixedDiscount,
-      'flexibleU1000': this.state.flexibleU1000,
-      'flexibleO1000': this.state.flexibleO1000,
-      'flexibleO2000': this.state.flexibleO2000,
+      'fixedDiscount': this.state.editedCustomer.fixedDiscount,
+      'flexibleU1000': this.state.editedCustomer.flexibleU1000,
+      'flexibleO1000': this.state.editedCustomer.flexibleO1000,
+      'flexibleO2000': this.state.editedCustomer.flexibleO2000,
     })
       .then(response => {
         console.log(response)
@@ -154,12 +154,29 @@ class Discounts extends React.Component {
                         No status defined
                       </Typography>
                       }
-                      { customer.discount ? 
+                      { customer.fixedDiscount && 
                       <Typography variant="body2" component="p">
-                        Discount: {customer.discount}
-                      </Typography> :
-                      <Typography color="textSecondary" variant="body2" component="p">
-                        No discount applied
+                        Discount: {customer.discount} {customer.fixedDiscount}%
+                      </Typography> 
+                      }
+                      { !customer.discount && 
+                      <Typography variant="body2" component="p" color="textSecondary">
+                        No discount assigned
+                      </Typography>
+                      }
+                      { customer.flexibleU1000 &&
+                      <Typography variant="body2" component="p" color="textSecondary">
+                        Flexible: Under £1000: {customer.flexibleU1000}%
+                      </Typography>
+                      }
+                      { customer.flexibleO1000 &&
+                      <Typography variant="body2" component="p">
+                        Flexible: £1000-2000: {customer.flexibleO1000}%
+                      </Typography>
+                      }
+                       { customer.flexibleO2000 &&
+                      <Typography variant="body2" component="p">
+                        Flexible: Over £2000: {customer.flexibleO2000}%
                       </Typography>
                       }
                       <Typography variant="body2" component="p">
@@ -241,7 +258,7 @@ class Discounts extends React.Component {
             </FormControl>
             <TextField
               variant="standard"
-              disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status}
+              disabled={this.state.editedCustomer.status === 'Regular' || !this.state.editedCustomer.status || this.state.editedCustomer.discount === 'Flexible'}
               value={this.state.editedCustomer.fixedDiscount}
               onChange={this.handleChangeInput}
               name="fixedDiscount"
@@ -252,7 +269,7 @@ class Discounts extends React.Component {
             />
             <TextField
               variant="standard"
-              disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status}
+              disabled={this.state.editedCustomer.status === 'Regular' || !this.state.editedCustomer.status || this.state.editedCustomer.discount === 'Fixed'}
               value={this.state.editedCustomer.flexibleU1000}
               onChange={this.handleChangeInput}
               name="flexibleU1000"
@@ -263,10 +280,10 @@ class Discounts extends React.Component {
             />
             <TextField
               variant="standard"
-              disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status}
+              disabled={this.state.editedCustomer.status === 'Regular' || !this.state.editedCustomer.status || this.state.editedCustomer.discount === 'Fixed'}
               value={this.state.editedCustomer.flexibleO1000}
               onChange={this.handleChangeInput}
-              name="flexibleO1000 (if applicable)"
+              name="flexibleO1000"
               margin="dense"
               id="flexibleO1000"
               label="Flexible >= £1000 & < £2000 (if applicable)"
@@ -274,7 +291,7 @@ class Discounts extends React.Component {
             />
             <TextField
               variant="standard"
-              disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status}
+              disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status || this.state.editedCustomer.discount === 'Fixed'}
               value={this.state.editedCustomer.flexibleO2000}
               onChange={this.handleChangeInput}
               name="flexibleO2000"
