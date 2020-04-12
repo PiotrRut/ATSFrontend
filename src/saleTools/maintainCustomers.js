@@ -235,7 +235,7 @@ class MaintainCustomers extends React.Component {
           <Grid item xs={12}>
             <Grid container justify="center" spacing={1}>
               {
-                this.state.allCustomers.map(customer => (
+                this.state.allCustomers.filter(customer => customer.name.toString() != 'Casual').map(customer => (
                   <div>
                   <Card className={classes.root} variant="outlined" >
                     <CardContent>
@@ -250,12 +250,29 @@ class MaintainCustomers extends React.Component {
                         Status: {customer.customerStatus} customer
                       </Typography>
                       }
-                      { customer.discount ?
+                      { customer.fixedDiscount && 
                       <Typography variant="body2" component="p">
-                        Discount: {customer.discount}
-                      </Typography> :
-                      <Typography color="textSecondary" variant="body2" component="p">
-                        No discount applied
+                        Discount: {customer.discount} {customer.fixedDiscount}%
+                      </Typography> 
+                      }
+                      { !customer.discount && 
+                      <Typography variant="body2" component="p" color="textSecondary">
+                        No discount assigned
+                      </Typography>
+                      }
+                      { customer.flexibleU1000 &&
+                      <Typography variant="body2" component="p" color="textSecondary">
+                        Flexible: Under £1000: {customer.flexibleU1000}%
+                      </Typography>
+                      }
+                      { customer.flexibleO1000 &&
+                      <Typography variant="body2" component="p">
+                        Flexible: £1000-2000: {customer.flexibleO1000}%
+                      </Typography>
+                      }
+                       { customer.flexibleO2000 &&
+                      <Typography variant="body2" component="p">
+                        Flexible: Over £2000: {customer.flexibleO2000}%
                       </Typography>
                       }
                       <Typography variant="body2" component="p">

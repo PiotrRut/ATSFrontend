@@ -35,7 +35,7 @@ class Sale extends React.Component {
       newSale: {
         blank: '',
         seller: this.props.mongoID,
-        customer: null,
+        customer: '',
         from: '',
         to: '',
         GBP_Price: null,
@@ -207,7 +207,6 @@ class Sale extends React.Component {
               <MenuItem value={customer._id}>{customer.name} {customer.surname} - {customer.customerStatus}</MenuItem>
             ))}
             <ListSubheader>Other</ListSubheader>
-            <MenuItem value="null">Casual customer</MenuItem>
             </Select>
         </FormControl>
       </Grid>

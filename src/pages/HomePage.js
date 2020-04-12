@@ -20,6 +20,7 @@ import StorageRoundedIcon from '@material-ui/icons/StorageRounded';
 import BackupRoundedIcon from '@material-ui/icons/BackupRounded';
 import PictureAsPdfRoundedIcon from '@material-ui/icons/PictureAsPdfRounded';
 import ContactMailRoundedIcon from '@material-ui/icons/ContactMailRounded';
+import Backup from '../adminTools/dbBackup'
 
 // Manager tabs
 import MonetizationOnRoundedIcon from '@material-ui/icons/MonetizationOnRounded';
@@ -98,6 +99,7 @@ export default function FullWidthTabs (props) {
       <MaintainStaff staffRole={props.staffRole} token={props.token} username={props.username} />
     </TabPanel>,
     <TabPanel key={'BackupDatabase'} value={value} index={1} dir={theme.direction}>
+      <Backup staffRole={props.staffRole} token={props.token} username={props.username}/>
     </TabPanel>,
     <TabPanel key={'ManageBlankStock'} value={value} index={2} dir={theme.direction}>
       <ManageBlanks staffRole={props.staffRole} token={props.token} username={props.username}/>
