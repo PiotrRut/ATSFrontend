@@ -12,7 +12,3 @@ We have been asked to build from the bottom a fully functional system that will 
 We have chosen to create the system as a web app, based purely on React for the user interface, and Node & Express server-side, with MongoDB as our database. There is a separate repository for backend to this project, which handles the server requests and database connection, and is available [here](https://github.com/PiotrRut/ATSBackend).
 
 Since the project specification does not require the system to be working on mobile devices, there is no mobile and responsiveness optimisation to this web app.
-
-### Installation
-
-In order to run the front on of the website, clone this repository, and run `yarn start` inside it. This will run the app in development mode, available at http://localhost:3000.
