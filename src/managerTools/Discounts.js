@@ -19,17 +19,8 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel"
 import FormControl from '@material-ui/core/FormControl';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Switch from '@material-ui/core/Switch';
-import Grow from '@material-ui/core/Grow';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import DeleteSweepRoundedIcon from '@material-ui/icons/DeleteSweepRounded';
-
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
-import PaymentRoundedIcon from '@material-ui/icons/PaymentRounded';
-
 
 const styles = theme => ({
   root: {
@@ -63,9 +54,7 @@ class Discounts extends React.Component {
         flexibleO1000: null,
         flexibleO2000: null,
         _id: null
-      },
-      checked: false,
-      setChecked: false
+      }
      }
   }
 
@@ -110,14 +99,6 @@ class Discounts extends React.Component {
   };
   handleCloseUpdate = () => {
     this.setState({ openUpdate: false });
-  };
-
-  // Handler for the check button
-  handleCheckButton = () => {
-    { !this.state.checked ?
-      this.setState({checked: true})
-      : this.setState({checked: false})
-    }
   };
 
   render () {
@@ -243,7 +224,7 @@ class Discounts extends React.Component {
               <InputLabel htmlFor="discount">Discount type</InputLabel>
               <Select
                 name='discount'
-                disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status}
+                disabled={this.state.editedCustomer.status === 'Regular' || !this.state.editedCustomer.status}
                 value={this.state.editedCustomer.discount}
                 onChange={this.handleChangeInput}
                 variant='standard'
@@ -291,7 +272,7 @@ class Discounts extends React.Component {
             />
             <TextField
               variant="standard"
-              disabled={this.state.editedCustomer.status == 'Regular' || !this.state.editedCustomer.status || this.state.editedCustomer.discount === 'Fixed'}
+              disabled={this.state.editedCustomer.status === 'Regular' || !this.state.editedCustomer.status || this.state.editedCustomer.discount === 'Fixed'}
               value={this.state.editedCustomer.flexibleO2000}
               onChange={this.handleChangeInput}
               name="flexibleO2000"

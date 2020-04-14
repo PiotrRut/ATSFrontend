@@ -2,17 +2,14 @@ import React from 'react'
 import axios from 'axios'
 import APIURL from '../misc/backend.js'
 import '../App.scss'
-import moment from 'moment'
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
-import AttachMoneyRoundedIcon from '@material-ui/icons/AttachMoneyRounded';
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel"
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { Typography } from '@material-ui/core'
 import Checkbox from '@material-ui/core/Checkbox';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
@@ -20,7 +17,6 @@ import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
@@ -70,8 +66,8 @@ class Sale extends React.Component {
     axios.post(`${APIURL}/blanks/blanksByAdvisor?secret_token=${this.props.token}`, {
       'myID': this.props.mongoID
     })
-      .then(res => this.setState({ blanks: res.data }))  
-    
+      .then(res => this.setState({ blanks: res.data }))
+
     // Get the current exchange rate
     axios.get(`${APIURL}/sales/getExchangeRate?secret_token=${this.props.token}`)
     .then(res => this.setState({ exchangeRate: res.data }, console.log(res)))
@@ -126,7 +122,7 @@ class Sale extends React.Component {
 
     <Grid container spacing={0} direction="row" alignItems="center" justify="center" >
       <Grid item xs={3}>
-        <FormControl required required style={{width: "200px"}}>
+        <FormControl required style={{width: "200px"}}>
           <InputLabel htmlFor="saleType">Type of sale</InputLabel>
             <Select
               name='saleType'
@@ -145,7 +141,7 @@ class Sale extends React.Component {
         </FormControl>
       </Grid>
       <Grid item xs={3}>
-      <FormControl required required style={{width: "200px"}}>
+      <FormControl required style={{width: "200px"}}>
           <InputLabel htmlFor="saleType">Payment method</InputLabel>
             <Select
               name='paymentType'
@@ -167,7 +163,7 @@ class Sale extends React.Component {
     <br/>
     <Grid container spacing={4} direction="row" alignItems="center" justify="center" >
       <Grid item xs={2}>
-        <FormControl required required style={{width: "200px"}}>
+        <FormControl required style={{width: "200px"}}>
           <InputLabel htmlFor="blank">Blank</InputLabel>
             <Select
               name='blank'
@@ -181,7 +177,7 @@ class Sale extends React.Component {
               style={{textAlign: 'left'}}
           >
             {this.state.blanks.filter(blank => (
-              (blank.sold != true) && (blank.void != true)
+              (blank.sold !== true) && (blank.void !== true)
             )).map(blank => (
               <MenuItem value={blank._id}>{blank.type}{blank.number}</MenuItem>
             ))}
@@ -189,7 +185,7 @@ class Sale extends React.Component {
         </FormControl>
       </Grid>
       <Grid item xs={2}>
-        <FormControl required required style={{width: "200px"}}>
+        <FormControl required style={{width: "200px"}}>
           <InputLabel htmlFor="customer">Customer</InputLabel>
             <Select
               name='customer'
@@ -279,7 +275,7 @@ class Sale extends React.Component {
       </Grid>
       <Grid item xs={2}>
       <TextField
-        disabled={this.state.newSale.saleType == 'Domestic'}
+        disabled={this.state.newSale.saleType === 'Domestic'}
         variant="standard"
         value={this.state.newSale.otherTaxes}
         onChange={this.handleInput}
@@ -294,7 +290,7 @@ class Sale extends React.Component {
 
     <Grid container spacing={4} direction="row" alignItems="center" justify="center">
       <Grid item xs={2}>
-      <FormControl required required style={{width: "200px"}}>
+      <FormControl required style={{width: "200px"}}>
           <InputLabel htmlFor="commission">Commission Rate</InputLabel>
             <Select
               name='commission'
@@ -315,7 +311,7 @@ class Sale extends React.Component {
       </Grid>
       <Grid item xs={2}>
       <TextField
-        disabled={this.state.newSale.paymentType == 'Cash'}
+        disabled={this.state.newSale.paymentType === 'Cash'}
         variant="standard"
         value={this.state.newSale.cardNumber}
         onChange={this.handleInput}
@@ -328,7 +324,7 @@ class Sale extends React.Component {
       </Grid>
       <Grid item xs={2}>
       <TextField
-        disabled={this.state.newSale.paymentType == 'Cash'}
+        disabled={this.state.newSale.paymentType === 'Cash'}
         variant="standard"
         value={this.state.newSale.issuer}
         onChange={this.handleInput}

@@ -1,26 +1,20 @@
 import React from 'react'
 import axios from 'axios'
 import Paper from '@material-ui/core/Paper'
-import AddIcon from '@material-ui/icons/Add'
 import TextField from '@material-ui/core/TextField'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import IconButton from '@material-ui/core/IconButton'
 import Grid from '@material-ui/core/Grid'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
 import Button from '@material-ui/core/Button'
-import DeleteSweepRoundedIcon from '@material-ui/icons/DeleteSweepRounded';
-import CloseIcon from '@material-ui/icons/Close'
-import Typography from '@material-ui/core/Typography'
 import APIURL from '../misc/backend.js'
 import InputLabel from "@material-ui/core/InputLabel"
 import FormControl from '@material-ui/core/FormControl';
@@ -29,7 +23,6 @@ import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 

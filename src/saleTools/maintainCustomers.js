@@ -21,9 +21,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Switch from '@material-ui/core/Switch';
-import Grow from '@material-ui/core/Grow';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DeleteSweepRoundedIcon from '@material-ui/icons/DeleteSweepRounded';
 
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
@@ -78,9 +75,7 @@ class MaintainCustomers extends React.Component {
           cardIssuer: '',
           cvc: '',
           exp: ''
-      },
-      checked: false,
-      setChecked: false
+      }
      }
   }
 
@@ -205,14 +200,6 @@ class MaintainCustomers extends React.Component {
     this.setState({ openCard: false });
   };
 
-  // Handler for the check button
-  handleCheckButton = () => {
-    { !this.state.checked ?
-      this.setState({checked: true})
-      : this.setState({checked: false})
-    }
-  };
-
   render () {
     const { classes } = this.props;
     return (
@@ -235,7 +222,7 @@ class MaintainCustomers extends React.Component {
           <Grid item xs={12}>
             <Grid container justify="center" spacing={1}>
               {
-                this.state.allCustomers.filter(customer => customer.name.toString() != 'Casual').map(customer => (
+                this.state.allCustomers.filter(customer => customer.name.toString() !== 'Casual').map(customer => (
                   <div>
                   <Card className={classes.root} variant="outlined" >
                     <CardContent>

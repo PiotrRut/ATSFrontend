@@ -3,23 +3,16 @@ import axios from 'axios'
 import APIURL from '../misc/backend.js'
 import '../App.scss'
 import Typography from '@material-ui/core/Typography'
-import moment from 'moment'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
-import AttachMoneyRoundedIcon from '@material-ui/icons/AttachMoneyRounded';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel"
-
 
 class ManageAgency extends React.Component {
   constructor (props) {

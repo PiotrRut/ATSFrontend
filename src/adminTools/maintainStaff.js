@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles';
 
 import Grid from "@material-ui/core/Grid"
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -22,9 +21,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Switch from '@material-ui/core/Switch';
-import Grow from '@material-ui/core/Grow';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DeleteSweepRoundedIcon from '@material-ui/icons/DeleteSweepRounded';
 
 
@@ -159,14 +155,6 @@ class MaintainStaff extends React.Component {
   };
   handleCloseUpdate = () => {
     this.setState({ openUpdate: false });
-  };
-
-  // Handler for the check button
-  handleCheckButton = () => {
-    { !this.state.checked ?
-      this.setState({checked: true})
-      : this.setState({checked: false})
-    }
   };
 
   render () {
