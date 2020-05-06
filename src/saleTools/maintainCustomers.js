@@ -222,7 +222,7 @@ class MaintainCustomers extends React.Component {
           <Grid item xs={12}>
             <Grid container justify="center" spacing={1}>
               {
-                this.state.allCustomers.filter(customer => customer.name.toString() !== 'Casual').map(customer => (
+                this.state.allCustomers.filter(customer => customer.name !== 'Casual').map(customer => (
                   <div>
                   <Card className={classes.root} variant="outlined" >
                     <CardContent>
