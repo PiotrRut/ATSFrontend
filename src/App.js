@@ -3,7 +3,6 @@ import axios from 'axios';
 import APIURL from "./misc/backend";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
-import authenticated from "./misc/userAuth";
 import NavBar from "./components/NavBar";
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
@@ -25,7 +24,7 @@ class App extends React.Component {
     // get it and set state and props for other components to access
     let webtoken = localStorage.getItem('usertoken')
     let parsedToken = JSON.parse(webtoken)
-    if (authenticated()) {
+    if (localStorage.getItem('usertoken') !== null) {
       this.state.userLoggedIn = true
       this.state.usertoken = parsedToken.token
     }
