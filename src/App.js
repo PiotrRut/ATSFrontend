@@ -24,7 +24,7 @@ class App extends React.Component {
     // get it and set state and props for other components to access
     let webtoken = localStorage.getItem('usertoken')
     let parsedToken = JSON.parse(webtoken)
-    if (localStorage.getItem('usertoken') !== null) {
+    if (webtoken) {
       this.state.userLoggedIn = true
       this.state.usertoken = parsedToken.token
     }
@@ -57,8 +57,15 @@ class App extends React.Component {
               {/* If logged in redirect to homepage and mount appropriate components, else display landing*/}
             {
               this.state.userLoggedIn
-              ? <HomePage token={this.state.usertoken} staffRole={this.state.userRole} username={this.state.userID} mongoID={this.state.mongoID}/>
-              : <LandingPage/>
+              ? 
+              <HomePage 
+                token={this.state.usertoken} 
+                staffRole={this.state.userRole} 
+                username={this.state.userID} 
+                mongoID={this.state.mongoID}
+              />
+              : 
+              <LandingPage/>
             }
           </div>
         )}/>

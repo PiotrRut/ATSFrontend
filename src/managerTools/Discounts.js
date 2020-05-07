@@ -37,7 +37,7 @@ const styles = theme => ({
   },
 });
 
-
+// Applying customer discounts and status
 class Discounts extends React.Component {
   constructor (props) {
     super(props)
@@ -87,7 +87,7 @@ class Discounts extends React.Component {
   }
 
 
-   // Updating customer details for editing customers
+  // Updating customer details for editing customers
   handleChangeInput = event => {
     this.state.editedCustomer[event.target.name] = event.target.value
     this.setState({ editedCustomer: this.state.editedCustomer});

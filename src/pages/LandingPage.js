@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import GitHubIcon from '@material-ui/icons/GitHub';
 
 
-// Landing page for the app (the default website which opens upon first visit)
+// Splash screen (the default website which opens upon first visit)
 function LandingPage() {
   return(
     <div>

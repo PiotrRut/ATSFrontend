@@ -30,8 +30,7 @@ import {
 
 import '../App.scss'
 
-// TODO: Add dateCreated field
-
+// Managing the blank stock in ATS
 class ManageBlanks extends React.Component {
   constructor (props) {
     super(props)
@@ -84,7 +83,7 @@ class ManageBlanks extends React.Component {
     .catch(error => {
       console.log(error)
     });
-};
+  };
 
   // Deleting ALL blanks from a range
   deleteRange = (_id) => {

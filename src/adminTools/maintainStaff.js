@@ -39,7 +39,7 @@ const styles = theme => ({
   },
 });
 
-
+// Managing staff accounts
 class MaintainStaff extends React.Component {
   constructor (props) {
     super(props)

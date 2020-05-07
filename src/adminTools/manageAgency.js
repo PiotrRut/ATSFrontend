@@ -14,6 +14,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+// Changing information about the travel agency
 class ManageAgency extends React.Component {
   constructor (props) {
     super(props)

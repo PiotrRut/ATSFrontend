@@ -20,6 +20,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+// Creating new sales
 class Sale extends React.Component {
   constructor (props) {
     super(props)
@@ -109,8 +110,8 @@ class Sale extends React.Component {
     this.setState({ newSale: this.state.newSale});
   };
 
-   // Handling the input from the date picker
-   handleDateInput = (date) => {
+  // Handling the input from the date picker
+  handleDateInput = (date) => {
     this.state.newSale.sold_date = date
     this.setState({ newSale: this.state.newSale })
   }
@@ -119,7 +120,7 @@ class Sale extends React.Component {
     return (
     <div>
     <h1>Register a new sale</h1>
-
+    {/* First row */}
     <Grid container spacing={0} direction="row" alignItems="center" justify="center" >
       <Grid item xs={3}>
         <FormControl required style={{width: "200px"}}>
@@ -234,7 +235,8 @@ class Sale extends React.Component {
       </Grid>
     </Grid>
     <br/>
-
+    
+    {/* Second row */}
     <Grid container spacing={4} direction="row" alignItems="center" justify="center" >
       <Grid item xs={2}>
       <TextField
@@ -288,6 +290,7 @@ class Sale extends React.Component {
       </Grid>
     </Grid>
 
+    {/* Third row */}
     <Grid container spacing={4} direction="row" alignItems="center" justify="center">
       <Grid item xs={2}>
       <FormControl required style={{width: "200px"}}>
@@ -353,6 +356,7 @@ class Sale extends React.Component {
       </Grid>
     </Grid>
 
+    {/* Buttons for submitting and late payment option */}
     <Grid container spacing={4} direction="row" alignItems="center" justify="center">
       <Grid item xs={2}>
         <Button onClick={this.makeSale} variant='small'>

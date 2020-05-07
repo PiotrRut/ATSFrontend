@@ -9,7 +9,6 @@ import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-// Admin tabs
 import MaintainStaff from '../adminTools/maintainStaff'
 import ManageAgency from '../adminTools/manageAgency'
 import ManageBlanks from '../adminTools/manageBlanks'
@@ -20,7 +19,6 @@ import PictureAsPdfRoundedIcon from '@material-ui/icons/PictureAsPdfRounded';
 import ContactMailRoundedIcon from '@material-ui/icons/ContactMailRounded';
 import Backup from '../adminTools/dbBackup'
 
-// Manager tabs
 import MonetizationOnRoundedIcon from '@material-ui/icons/MonetizationOnRounded';
 import PersonAddRoundedIcon from '@material-ui/icons/PersonAddRounded';
 import ReceiptRoundedIcon from '@material-ui/icons/ReceiptRounded';
@@ -31,7 +29,6 @@ import CommissionRate from '../managerTools/CommissionRate'
 import Discounts from '../managerTools/Discounts'
 import AssignBlanks from '../managerTools/AssignBlanks'
 
-// Sales tabs
 import LocalAirportRoundedIcon from '@material-ui/icons/LocalAirportRounded';
 import MaintainCustomers from '../saleTools/maintainCustomers'
 import Sale from '../saleTools/Sale'
@@ -79,6 +76,7 @@ export default function FullWidthTabs (props) {
   const theme = useTheme()
   var tabs = []
   var icons = []
+  let components;
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event, newValue) => {
@@ -89,10 +87,9 @@ export default function FullWidthTabs (props) {
     setValue(index)
   }
 
-  let allTabs;
   // Create administrator views
   if (props.staffRole === 'Admin') {
-    allTabs = props = [
+    components = [
     <TabPanel key={'ManageStaff'} value={value} index={0} dir={theme.direction}>
       <MaintainStaff staffRole={props.staffRole} token={props.token} username={props.username} />
     </TabPanel>,
@@ -124,7 +121,7 @@ export default function FullWidthTabs (props) {
     ]
     // Create manager views
   } else if (props.staffRole === 'Manager') {
-    allTabs = props = [
+    components = [
     <TabPanel key={'ExchangeRate'} value={value} index={0} dir={theme.direction}>
       <ExchangeRate user={props.staffRole} token={props.token}/>
     </TabPanel>,
@@ -160,7 +157,7 @@ export default function FullWidthTabs (props) {
     ]
     // Create travel advisor views
   } else if (props.staffRole === 'Advisor') {
-    allTabs = props = [
+    components = [
     <TabPanel key={'ExchangeRate'} value={value} index={0} dir={theme.direction}>
       <ExchangeRate user={props.staffRole} token={props.token}/>
     </TabPanel>,
@@ -192,17 +189,16 @@ export default function FullWidthTabs (props) {
           indicatorColor="secondary"
           textColor="white"
           variant="fullWidth"
-          aria-label="staff-action-tabs"
         >
           {
-            tabs.map((name, index) => (
+            tabs.map((key, index) => (
               <Tab key={index} label={tabs[index]} {...a11yProps(index)} icon={icons[index]} />
             ))
           }
         </Tabs>
       </AppBar>
       <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'} index={value} onChangeIndex={handleChangeIndex}>
-        {allTabs}
+        {components}
       </SwipeableViews>
     </div>
   )

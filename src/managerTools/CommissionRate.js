@@ -18,6 +18,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel"
 import FormControl from '@material-ui/core/FormControl';
 
+// Adding and removing the commission rates
 class CommissionRate extends React.Component {
   constructor (props) {
     super(props)

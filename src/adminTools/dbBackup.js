@@ -6,14 +6,10 @@ import moment from 'moment'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button'
 
-
+// Database backup and restore
 class Backup extends React.Component {
   constructor (props) {
     super(props)
-
-    this.state = {
-      lastBackup: localStorage.getItem('lastBackup')
-    }
   }
 
 
@@ -39,7 +35,6 @@ class Backup extends React.Component {
     return (
     <div>
     <h1>Database Backup</h1>
-    <h5>Last Update: {moment(this.state.lastBackup).format('Do MMMM YYYY, h:mm:ss a')}</h5>
     <Grid container spacing={0} direction="column" alignItems="center" justify="center" >
         <Grid item xs={3}>
             <Button onClick={this.backupDB}>

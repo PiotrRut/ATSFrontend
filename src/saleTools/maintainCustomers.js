@@ -43,7 +43,7 @@ const styles = theme => ({
   },
 });
 
-
+// Managing all user accounts and payment cards
 class MaintainCustomers extends React.Component {
   constructor (props) {
     super(props)

@@ -26,11 +26,9 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-
 import '../App.scss'
 
-// TODO: Add dateAssigned field
-
+// Assigning blanks to advisors
 class AssignBlanks extends React.Component {
   constructor (props) {
     super(props)
@@ -55,14 +53,14 @@ class AssignBlanks extends React.Component {
     }
   }
 
-  // Get all the blanks, ranges and staff upon component mount
   componentDidMount() {
+    // Get all the blanks
     axios.get(`${APIURL}/blanks/getAll?secret_token=${this.props.token}`)
       .then(res => this.setState({ blanks: res.data }, () => {
         console.log(res)
       }))
 
-    // Filter out blanks that are not assigned assigned
+    // Filter out blanks that are not assigned
     axios.get(`${APIURL}/blanks/getAll?secret_token=${this.props.token}`)
       .then(res => res.data.filter(blank => (blank.assignedTo ? false : true)))
       .then(res => this.setState({ blanksFree: res }))

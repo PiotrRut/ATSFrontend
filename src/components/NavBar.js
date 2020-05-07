@@ -18,8 +18,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 
-
-
+// Navigation bar (top)
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -40,6 +39,7 @@ class NavBar extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+  
   // Updating username and password from within the form
   handleInput = event => {
     this.setState({ [event.target.name]: event.target.value });
