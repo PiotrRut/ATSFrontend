@@ -76,7 +76,7 @@ export default function FullWidthTabs (props) {
   const theme = useTheme()
   var tabs = []
   var icons = []
-  let components;
+  var components = []
   const [value, setValue] = React.useState(0)
 
   const handleChange = (event, newValue) => {

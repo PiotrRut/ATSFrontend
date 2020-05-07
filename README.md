@@ -3,7 +3,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b3cc5e5c-2cb3-4899-8565-fc0d27198284/deploy-status)](https://app.netlify.com/sites/ats-group6/deploys)
 
 
-This repository contains the full source code of my our solution to the 2nd year group project at City, University of London.
+This repository contains the full source code of our solution to the 2nd year group project at City, University of London.
 
 We have been asked to build from the bottom a fully functional system that will keep records of tickets sold by a travel agency to customers, and produce reports required by an airline. All parts of the system are based on exact specification and requirements provided to all students by the University.
 
