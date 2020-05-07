@@ -45,14 +45,6 @@ class NavBar extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  // Side menu open and close
-  openMenu = () => {
-    this.setState({ sideMenuOpen: true });
-  };
-  closeMenu = () => {
-    this.setState({ sideMenuOpen: false });
-  };
-
   // User authentication via the API url
   formSubmit = () => {
     axios.post(`${APIURL}/auth/login`, {
@@ -171,23 +163,6 @@ class NavBar extends React.Component {
             </Dialog>
           </Toolbar>
         </AppBar>
-
-        {/* Side menu (drawer) */}
-        <Drawer open={this.state.sideMenuOpen} onClose={this.closeMenu}>
-          <List style={{ width: "250px" }}></List>
-          <Box fontSize="fontSize" textAlign="center">
-            <p>Designed in London by Team 6ix</p>
-            <p>
-              Developed by Team 6ix
-            </p>
-            {
-              this.props.userLoggedIn &&
-              <p>
-                Currently logged in as {this.props.staffRole}
-              </p>
-            }
-          </Box>
-        </Drawer>
       </div>
     );
   }
