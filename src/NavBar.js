@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import APIURL from "../misc/backend";
+import APIURL from "./misc/backend";
 import AppBar from "@material-ui/core/AppBar";
 import Box from "@material-ui/core/Box";
 import Toolbar from "@material-ui/core/Toolbar";

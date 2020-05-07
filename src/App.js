@@ -3,7 +3,7 @@ import axios from 'axios';
 import APIURL from "./misc/backend";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
-import NavBar from "./components/NavBar";
+import NavBar from "./NavBar";
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 
